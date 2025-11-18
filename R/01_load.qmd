@@ -50,5 +50,5 @@ data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+")
 ### Meta data
 
 ```{r}
-metadata <- read_csv("../data/_raw/msb201315-s2.csv", n_max= 89)
+metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
 ```
