@@ -47,6 +47,10 @@ data_expression <- read_delim(here("data","expression",
 data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+"))
 ```
 
+```{r}
+write_tsv(data_expression, here("data","01_expression_dat.tsv.gz"))
+```
+
 ### Meta data
 
 ```{r}
