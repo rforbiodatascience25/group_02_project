@@ -7,6 +7,7 @@ format: html
 
 ```{r}
 library("here")
+library('dplyr')
 ```
 
 ### Download data
@@ -27,6 +28,7 @@ untar(here("data","_raw","GSE41080_RAW.tar"),
 
 ```{r}
 
-metadata <- read_csv("../data/_raw/msb201315-s2.csv")
-view(metadata)
+metadata <- read_csv("../data/_raw/msb201315-s2.csv", n_max= 89)
+
+
 ```
