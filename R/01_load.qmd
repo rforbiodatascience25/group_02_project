@@ -16,11 +16,6 @@ curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE410
                     destfile = here("data","_raw","GSE41080_RAW.tar"))
 ```
 
-```{r}
-curl::curl_download(url = "https://pmc.ncbi.nlm.nih.gov/articles/instance/3658270/bin/msb201315-s2.csv", 
-                    destfile = here("data","_raw","msb201315-s2.csv"))
-```
-
 ### Expression
 
 ```{r}
@@ -29,3 +24,9 @@ untar(here("data","_raw","GSE41080_RAW.tar"),
 ```
 
 ### Meta data
+
+```{r}
+
+metadata <- read_csv("../data/_raw/msb201315-s2.csv")
+view(metadata)
+```
