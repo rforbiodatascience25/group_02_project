@@ -1,0 +1,16 @@
+---
+title: "01_load"
+format: html
+---
+
+### Download data
+
+```{r}
+curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE41080&format=file", 
+                    destfile = "data/_raw/GSE30101_RAW.tar")
+```
+
+```{r}
+curl::curl_download(url = "https://pmc.ncbi.nlm.nih.gov/articles/instance/3658270/bin/msb201315-s2.csv", 
+                    destfile = "data/_raw/msb201315-s2.csv")
+```
