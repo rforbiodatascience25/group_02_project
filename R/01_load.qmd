@@ -7,11 +7,8 @@ format: html
 
 ```{r}
 library("here")
-<<<<<<< HEAD
 library('dplyr')
-=======
 library("tidyverse")
->>>>>>> a050a78f7b1cfea641cd6e8242bd455050372fcd
 ```
 
 ### Download data
