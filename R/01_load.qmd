@@ -7,7 +7,11 @@ format: html
 
 ```{r}
 library("here")
+<<<<<<< HEAD
 library('dplyr')
+=======
+library("tidyverse")
+>>>>>>> a050a78f7b1cfea641cd6e8242bd455050372fcd
 ```
 
 ### Download data
@@ -24,11 +28,20 @@ untar(here("data","_raw","GSE41080_RAW.tar"),
       exdir = here("data","expression"))
 ```
 
+```{r}
+expression_files <- list.files(here("data","expression"))
+```
+
+```{r}
+data_expression <- read_delim(here("data","expression",expression_files[2:92]), id = "file", col_names = FALSE, skip = 1)
+```
+
+```{r}
+data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+"))
+```
+
 ### Meta data
 
 ```{r}
-
 metadata <- read_csv("../data/_raw/msb201315-s2.csv", n_max= 89)
-
-
 ```
