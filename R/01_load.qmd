@@ -29,10 +29,20 @@ expression_files <- list.files(here("data","expression"))
 ```
 
 ```{r}
-data_expression <- read_delim(here("data","expression",expression_files[2:92]), id = "file", col_names = FALSE, skip = 1)
-```
-
-```{r}
+data_expression <- read_delim(here("data","expression",
+                                   expression_files[2:92]), 
+                              id = "file", 
+                              col_names = c("PROBE_ID",
+                                            "NBEADS1",
+                                            "Signal",
+                                            "Pval",
+                                            "NARRAYS",
+                                            "ARRAY_STDEV",
+                                            "BEAD_STDERR",
+                                            "NBEADS2",
+                                            "SEARCH_KEY"), 
+                              skip = 1,
+                              na = "NaN")
 data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+"))
 ```
 
