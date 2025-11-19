@@ -6,6 +6,8 @@ format: html
 ### Libraries
 
 ```{r}
+#| message: false
+
 library("here")
 library('dplyr')
 library("tidyverse")
@@ -29,17 +31,16 @@ if(!file.exists(here("data", "_raw", "GSE41080_RAW.tar"))){
 ### Expression
 
 ```{r}
-untar(here("data","_raw","GSE41080_RAW.tar"), 
-      exdir = here("data","expression"))
+untar(here("data", "_raw", "GSE41080_RAW.tar"), 
+      exdir = here("data", "expression"))
 ```
 
 ```{r}
-expression_files <- list.files(here("data","expression"))
+expression_files <- list.files(here("data", "expression"))
 ```
 
 ```{r}
-data_expression <- read_delim(here("data","expression",
-                                   expression_files[2:92]), 
+data_expression <- read_delim(here("data", "expression", expression_files[2:92]), 
                               id = "file", 
                               col_names = c("PROBE_ID",
                                             "NBEADS1",
@@ -51,12 +52,13 @@ data_expression <- read_delim(here("data","expression",
                                             "NBEADS2",
                                             "SEARCH_KEY"), 
                               skip = 1,
-                              na = "NaN")
-data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+"))
+                              na = "NaN",
+                              show_col_types = FALSE) |> 
+  mutate(file = str_extract(file, "GSM[0-9]+"))
 ```
 
 ```{r}
-write_tsv(data_expression, here("data","01_expression_dat.tsv.gz"))
+write_tsv(data_expression, here("data","01_expression_dat_load.tsv.gz"))
 ```
 
 ### Meta data
