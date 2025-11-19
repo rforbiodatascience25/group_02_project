@@ -14,8 +14,16 @@ library("tidyverse")
 ### Download data
 
 ```{r}
-curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE41080&format=file", 
-                    destfile = here("data","_raw","GSE41080_RAW.tar"))
+source("99_proj_func.R")
+create_directory(here("data"))
+create_directory(here("data", "_raw"))
+```
+
+```{r}
+if(!file.exists(here("data", "_raw", "GSE41080_RAW.tar"))){
+  curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE41080&format=file", 
+                      destfile = here("data", "_raw", "GSE41080_RAW.tar"))
+}
 ```
 
 ### Expression
