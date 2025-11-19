@@ -64,6 +64,7 @@ write_tsv(data_expression, here("data","01_expression_dat_load.tsv.gz"))
 ### Meta data
 
 ```{r}
+#| message: false
 metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
 ```
 
