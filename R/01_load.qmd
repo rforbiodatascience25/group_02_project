@@ -71,5 +71,5 @@ dir.create(here("data"), recursive = TRUE, showWarnings = FALSE)
 metadata <- metadata %>%
   select(-starts_with("Season"), -starts_with("VacType"))
 
-write_tsv(metadata, here("data", "01_meta_dat_load.tsv"))
+write_tsv(metadata, here("data", "01_meta_dat.tsv"))
 ```
