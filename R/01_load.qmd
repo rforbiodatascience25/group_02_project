@@ -6,12 +6,16 @@ format: html
 ### Libraries
 
 ```{r}
+#| message: false
+
 library("here")
 library('dplyr')
 library("tidyverse")
 ```
 
 ### Download data
+
+The data and \_raw directories are only created if they do not already exist.
 
 ```{r}
 source("99_proj_func.R")
@@ -29,17 +33,18 @@ if(!file.exists(here("data", "_raw", "GSE41080_RAW.tar"))){
 ### Expression
 
 ```{r}
-untar(here("data","_raw","GSE41080_RAW.tar"), 
-      exdir = here("data","expression"))
+untar(here("data", "_raw", "GSE41080_RAW.tar"), 
+      exdir = here("data", "expression"))
 ```
 
 ```{r}
-expression_files <- list.files(here("data","expression"))
+expression_files <- list.files(here("data", "expression"))
 ```
 
+The first file in expression_files is a reference file for the probe IDs in the other files. We do not use this file and as a result it is not read. The column names are added manually and the first line skipped because column names in the files contain the general column name plus a number that is different.
+
 ```{r}
-data_expression <- read_delim(here("data","expression",
-                                   expression_files[2:92]), 
+data_expression <- read_delim(here("data", "expression", expression_files[2:92]), 
                               id = "file", 
                               col_names = c("PROBE_ID",
                                             "NBEADS1",
@@ -51,16 +56,20 @@ data_expression <- read_delim(here("data","expression",
                                             "NBEADS2",
                                             "SEARCH_KEY"), 
                               skip = 1,
-                              na = "NaN")
-data_expression <- mutate(data_expression, file = str_extract(file, "GSM[0-9]+"))
+                              na = "NaN",
+                              show_col_types = FALSE) |> 
+  mutate(file = str_extract(file, "GSM[0-9]+"))
 ```
 
 ```{r}
-write_tsv(data_expression, here("data","01_expression_dat.tsv.gz"))
+write_tsv(data_expression, here("data","01_expression_dat_load.tsv.gz"))
 ```
 
 ### Meta data
 
+The rows after row 89 contain no information and are as a result not included
+
 ```{r}
+#| message: false
 metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
 ```
