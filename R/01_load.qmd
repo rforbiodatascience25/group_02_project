@@ -20,8 +20,10 @@ create_directory(here("data", "_raw"))
 ```
 
 ```{r}
-curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE41080&format=file", 
-                    destfile = here("data","_raw","GSE41080_RAW.tar"))
+if(!file.exists(here("data", "_raw", "GSE41080_RAW.tar"))){
+  curl::curl_download(url = "https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE41080&format=file", 
+                      destfile = here("data", "_raw", "GSE41080_RAW.tar"))
+}
 ```
 
 ### Expression
