@@ -64,12 +64,3 @@ write_tsv(data_expression, here("data","01_expression_dat.tsv.gz"))
 ```{r}
 metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
 ```
-
-```{r}
-dir.create(here("data"), recursive = TRUE, showWarnings = FALSE)
-
-metadata <- metadata %>%
-  select(-starts_with("Season"), -starts_with("VacType"))
-
-write_tsv(metadata, here("data", "01_meta_dat.tsv"))
-```
