@@ -58,10 +58,10 @@ metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" ,
 ```
 
 ```{r}
-dir.create(here("data","01_load"), recursive = TRUE, showWarnings = FALSE)
+dir.create(here("data"), recursive = TRUE, showWarnings = FALSE)
 
 metadata <- metadata %>%
   select(-starts_with("Season"), -starts_with("VacType"))
 
-write_tsv(metadata, here("data", "01_load", "01_dat_load.tsv"))
+write_tsv(metadata, here("data", "01_meta_dat_load.tsv"))
 ```
