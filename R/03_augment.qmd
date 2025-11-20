@@ -3,3 +3,43 @@ title: "03_augment"
 format: html
 ---
 
+Load the data from the final files.
+
+```{r}
+#| message: false
+metadata <- read_tsv(here("data", "02_meta_dat_clean.tsv"))
+analysis_data <- read_tsv(here("data","02_expression_dat_clean.tsv.gz"))
+```
+
+In order to create the final dataset, we need to pivot wider the data with mRNA expression using as row names the sample IDs, column names will be the Probe IDs and the values are the signals for each Probe.
+
+```{r}
+analysis_data <- analysis_data |> 
+  pivot_wider(
+    id_cols = file,         
+    names_from = PROBE_ID,  
+    values_from = Signal    
+  )
+```
+
+We, also, need to connect the two datasets by the IDs.
+
+```{r}
+mapping_key <- analysis_data |> 
+  select(file) |>
+  distinct()
+
+metadata <- metadata |> 
+  mutate(mapping_key)
+```
+
+Now we can connect the two datasets using as key to join the mapping_key created.
+
+```{r}
+analysis_data <- analysis_data |> 
+  left_join(metadata, by = "mapping_key")
+```
+
+```{r}
+write_tsv(analysis_data, here("data","03_expression_dat_aug.tsv.gz"))
+```
