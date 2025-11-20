@@ -30,7 +30,8 @@ mapping_key <- analysis_data |>
   distinct()
 
 metadata <- metadata |> 
-  mutate(mapping_key)
+  mutate(mapping_key) |> 
+  select(-xID)
 ```
 
 Now we can connect the two datasets using as key to join the mapping_key created.
