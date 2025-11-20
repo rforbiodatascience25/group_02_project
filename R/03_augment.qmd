@@ -38,7 +38,7 @@ Now we can connect the two datasets using as key to join the mapping_key created
 
 ```{r}
 analysis_data <- analysis_data |> 
-  left_join(metadata, by = "mapping_key")
+  full_join(metadata, by = "mapping_key")
 ```
 
 ```{r}
