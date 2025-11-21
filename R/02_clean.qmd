@@ -3,6 +3,24 @@ title: "02_clean"
 format: html
 ---
 
+## Libraries
+
+```{r}
+#| message: false
+
+library("here")
+library("tidyverse")
+```
+
+## Expression data
+
+```{r}
+data_expression <- read_tsv(here("data", "01_expression_dat_load.tsv.gz"),
+                            show_col_types = FALSE) |> 
+  select(file, PROBE_ID, Signal, Pval) |> 
+  filter(file != "GSM1008315" & file != "GSM1008340")
+```
+
 ## Metadata
 
 ```{r}
