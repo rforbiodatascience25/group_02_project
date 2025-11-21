@@ -21,6 +21,22 @@ data_expression <- read_tsv(here("data", "01_expression_dat_load.tsv.gz"),
   filter(file != "GSM1008315" & file != "GSM1008340")
 ```
 
+```{r}
+data_expression <- data_expression |>
+  group_by(PROBE_ID) |> 
+  nest() |> 
+  mutate(Avg_Pval = map_dbl(.x = data, 
+                            .f = ~mean(pull(.x, Pval)))) |> 
+  unnest(cols = c(data)) |> 
+  ungroup() |>
+  filter(Avg_Pval < 0.05) |> 
+  select(-Avg_Pval)
+```
+
+```{r}
+write_tsv(data_expression, here("data", "02_expression_dat_clean.tsv.gz"))
+```
+
 ## Metadata
 
 ```{r}
