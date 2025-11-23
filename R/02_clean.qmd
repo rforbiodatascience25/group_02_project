@@ -42,7 +42,7 @@ write_tsv(data_expression, here("data", "02_expression_dat_clean.tsv.gz"))
 ```{r}
 dir.create(here("data"), recursive = TRUE, showWarnings = FALSE)
 
-metadata <- metadata %>%
+metadata <- metadata |> 
   select(-starts_with("Season"),
     -starts_with("VacType"),
     -Prior_vac,

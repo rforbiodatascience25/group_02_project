@@ -37,8 +37,9 @@ metadata <- metadata |>
 Now we can connect the two datasets using as key to join the mapping_key created.
 
 ```{r}
-analysis_data <- analysis_data |> 
-  full_join(metadata, by = "file")
+analysis_data <- metadata |> 
+  full_join(analysis_data, by = "file") |> 
+  relocate("file")
 ```
 
 ```{r}
