@@ -39,9 +39,15 @@ Now we can connect the two datasets using as key to join the mapping_key created
 ```{r}
 analysis_data <- metadata |> 
   full_join(analysis_data, by = "file") |> 
-  relocate("file")
+  relocate("file") 
+
+analysis_data <- analysis_data |>
+  rename(EBV_pos = "EBV (1 = pos)",
+         CMV_pos = "CMV (1= pos)")
 ```
 
 ```{r}
 write_tsv(analysis_data, here("data","03_expression_dat_aug.tsv.gz"))
+
+rm(list = ls())
 ```
