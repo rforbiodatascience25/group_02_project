@@ -3,3 +3,32 @@ title: "05_analysis1"
 format: html
 ---
 
+### Libraries
+
+```{r}
+#| message: false
+
+library("tidyverse")
+library("here")
+library("broom")
+```
+
+### PCA
+
+```{r}
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
+```
+
+```{r}
+pca <- analysis_data |> 
+  select(starts_with("ILMN_")) |> 
+  scale() |> 
+  prcomp()
+```
+
+```{r}
+pca |> 
+  augment(analysis_data) |> 
+  ggplot(aes(.fittedPC1, .fittedPC2, color = BMI)) +
+  geom_point()
+```
