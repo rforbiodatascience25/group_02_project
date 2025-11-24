@@ -51,7 +51,3 @@ write_tsv(analysis_data, here("data","03_expression_dat_aug.tsv.gz"))
 
 rm(list = ls())
 ```
-
-```{r}
-rm(list = ls())
-```
