@@ -1,6 +1,7 @@
 ---
 title: "04_describe"
 format: html
+embed-resources: true
 ---
 
 Loading the libraries we will need

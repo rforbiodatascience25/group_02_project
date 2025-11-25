@@ -1,6 +1,7 @@
 ---
 title: "02_clean"
 format: html
+embed-resources: true
 ---
 
 ## Libraries

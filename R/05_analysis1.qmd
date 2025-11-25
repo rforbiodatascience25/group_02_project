@@ -1,6 +1,7 @@
 ---
 title: "05_analysis1"
 format: html
+embed-resources: true
 ---
 
 ### Libraries
