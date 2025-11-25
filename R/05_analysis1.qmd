@@ -11,6 +11,7 @@ format: html
 library("tidyverse")
 library("here")
 library("broom")
+library("patchwork")
 ```
 
 ### PCA
@@ -25,6 +26,26 @@ pca <- analysis_data |>
   scale() |> 
   prcomp()
 ```
+
+#### Variance explained by principal components
+
+```{r}
+pca_var <- pca |> 
+  tidy("eigenvalues")
+
+p1 <- pca_var |> 
+  ggplot(aes(PC, percent)) +
+  geom_col()
+  
+p2 <- pca_var |> 
+  ggplot(aes(PC, cumulative)) +
+  geom_line() +
+  geom_point()
+
+p1 + p2
+```
+
+#### Data in principal component coordinates
 
 ```{r}
 pca |> 
