@@ -5,4 +5,22 @@ embed-resources: true
 editor: visual
 ---
 
+# 01_load
+
 {{< include 01_load.qmd >}}
+
+# 02_clean
+
+{{< include 02_clean.qmd >}}
+
+# 03_augment
+
+{{< include 03_augment.qmd >}}
+
+# 04_describe
+
+{{< include 04_describe.qmd >}}
+
+# 05_analysis1
+
+{{< include 05_analysis1.qmd >}}
