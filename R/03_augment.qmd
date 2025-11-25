@@ -44,6 +44,24 @@ analysis_data <- metadata |>
 analysis_data <- analysis_data |>
   rename(EBV_pos = "EBV (1 = pos)",
          CMV_pos = "CMV (1= pos)")
+
+analysis_data <- analysis_data |>
+  mutate(
+    Age_Group = case_when(
+      Age >= 20 & Age <= 30 ~ "Young",
+      Age >= 61 ~ "Older"),
+    Cytomegalovirus = case_when(
+      CMV_pos == 1 ~ "Positive",
+      CMV_pos == 0 ~ "Negative"),
+    EpsteinBarrvirus = case_when(
+      EBV_pos == 1 ~ "Positive",
+      EBV_pos == 0 ~ "Negative")) |> 
+  relocate(Age_Group, .after = Age) |> 
+  relocate(Cytomegalovirus, .after = BMI) |> 
+  relocate(EpsteinBarrvirus, .after = BMI ) |> 
+  select(-`CMV_pos`, -EBV_pos)
+
+
 ```
 
 ```{r}

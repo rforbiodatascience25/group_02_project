@@ -24,19 +24,6 @@ analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
 ```
 
 ```{r}
-analysis_data <- analysis_data |>
-  mutate(
-    Age_Group = case_when(
-      Age >= 20 & Age <= 30 ~ "Young",
-      Age >= 61 ~ "Older"),
-    Cytomegalovirus = case_when(
-      CMV_pos == 1 ~ "Positive",
-      CMV_pos == 0 ~ "Negative"),
-    EpsteinBarrvirus = case_when(
-      EBV_pos == 1 ~ "Positive",
-      EBV_pos == 0 ~ "Negative")
-  )
-
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>
   summarize(
@@ -45,22 +32,21 @@ numeric_summary <- analysis_data |>
       " (", 
       min(Age, na.rm = TRUE), "–", 
       max(Age, na.rm = TRUE), 
-      ")"
-    ),
+      ")"),
     BMI_Median_Range = paste0(
       round(median(BMI, na.rm = TRUE), 1), 
       " (", 
       min(BMI, na.rm = TRUE), "–", 
       max(BMI, na.rm = TRUE), 
-      ")"
-    ),
-    .groups = 'drop'
-  )
+      ")"),
+    .groups = 'drop')
 
-
-gender_table <- get_categorical_summary(analysis_data, Gender) |> mutate(Variable = "Gender")
-cmv_table <- get_categorical_summary(analysis_data, Cytomegalovirus) |> mutate(Variable = "Cytomegalovirus")
-ebv_table <- get_categorical_summary(analysis_data, EpsteinBarrvirus) |> mutate(Variable = "EpsteinBarrvirus")
+gender_table <- get_categorical_summary(analysis_data, Gender) |> 
+  mutate(Variable = "Gender")
+cmv_table <- get_categorical_summary(analysis_data, Cytomegalovirus) |> 
+  mutate(Variable = "Cytomegalovirus")
+ebv_table <- get_categorical_summary(analysis_data, EpsteinBarrvirus) |> 
+  mutate(Variable = "EpsteinBarrvirus")
 
 categorical_summary <- bind_rows(gender_table, cmv_table, ebv_table)
 
@@ -69,9 +55,12 @@ final_categorical_table <- categorical_summary |>
     names_from = Age_Group,
     values_from = Value,
     id_cols = c(Variable, Characteristic),
-    names_sort = TRUE 
-  )
+    names_sort = TRUE)
 
 print(numeric_summary)
 print(final_categorical_table)
+```
+
+```{r}
+
 ```
