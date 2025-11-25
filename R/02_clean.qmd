@@ -15,12 +15,16 @@ library("tidyverse")
 
 ## Expression data
 
+For the analysis only the probe ID and signal is needed. The p-value is used to choose which probes to work with. The file identifier is needed to combine the expression data and the metadata. Two people did not complete the trial so there is no metadata for them so their expression data is removed.
+
 ```{r}
 data_expression <- read_tsv(here("data", "01_expression_dat_load.tsv.gz"),
                             show_col_types = FALSE) |> 
   select(file, PROBE_ID, Signal, Pval) |> 
   filter(file != "GSM1008315" & file != "GSM1008340")
 ```
+
+For the analysis only probes with an average p-value under 0.05 are used
 
 ```{r}
 data_expression <- data_expression |>
