@@ -41,7 +41,8 @@ write_tsv(data_expression, here("data", "02_expression_dat_clean.tsv.gz"))
 ## Metadata
 
 ```{r}
-dir.create(here("data"), recursive = TRUE, showWarnings = FALSE)
+metadata <- read_tsv(here("data", "01_meta_dat_load.tsv.gz"),
+                     show_col_types = FALSE)
 
 metadata <- metadata |> 
   select(-starts_with("Season"),
