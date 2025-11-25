@@ -74,3 +74,7 @@ The rows after row 89 contain no information and are as a result not included
 #| message: false
 metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
 ```
+
+```{r}
+write_tsv(metadata, here("data", "01_meta_dat_load.tsv.gz"))
+```
