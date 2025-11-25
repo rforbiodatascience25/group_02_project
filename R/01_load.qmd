@@ -10,7 +10,6 @@ embed-resources: true
 #| message: false
 
 library("here")
-library('dplyr')
 library("tidyverse")
 ```
 
