@@ -8,7 +8,7 @@ AnastasiaKampantai - s253724, hannahnorrelykke - s224972, MieHeLarsen - s224976,
 
 ### Description
 
-In this project we will analysethe data produced in the paper "**Apoptosis and other immune biomarkers predict influenza vaccine responsiveness**".
+In this project we will analyse the data produced in the paper "**Apoptosis and other immune biomarkers predict influenza vaccine responsiveness**".
 
 In the original paper, blood samples were used from 89 participants pre- and post-vaccination and they were analysed with Illumina BeadScan, containing 48.771 probes.
 

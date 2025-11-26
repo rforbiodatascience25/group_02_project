@@ -50,11 +50,11 @@ metadata <- read_tsv(here("data", "01_meta_dat_load.tsv.gz"),
 
 metadata <- metadata |> 
   select(-starts_with("Season"),
-    -starts_with("VacType"),
-    -Prior_vac,
-    -VACCOUNT,
-    -FLU_EVR,
-    -FLU_HOSP)
+        -starts_with("VacType"),
+        -Prior_vac,
+        -VACCOUNT,
+        -FLU_EVR,
+        -FLU_HOSP)
 
 write_tsv(metadata, here("data", "02_meta_dat_clean.tsv"))
 ```
