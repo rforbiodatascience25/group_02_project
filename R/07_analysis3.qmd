@@ -56,7 +56,6 @@ plot_b_data <- analysis_data |>
     Age_Group = factor(Age_Group, levels = c("Young", "Older")),
     Response_group = factor(Response_group, levels = c("Good responders", "Poor responders"))  
   )
-
 ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
   geom_col(position = "fill", colour = "black", width = 0.6) +
   scale_x_continuous(labels = scales::percent_format()) +
