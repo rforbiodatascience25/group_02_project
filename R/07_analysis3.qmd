@@ -7,8 +7,17 @@ embed-resources: true
 A
 
 ```{r}
-library(tidyverse)
+#| message: false
+library("tidyverse")
+library("here")
+```
 
+```{r}
+#| message: false
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
+```
+
+```{r}
 plot_data <- analysis_data |>
   group_by(Age_Group, Strains) |>
   summarise(n = n(), .groups = "drop") |>
@@ -16,7 +25,9 @@ plot_data <- analysis_data |>
   mutate(rate = 100 * n / sum(n)) |>
   ungroup() |>
   mutate(Strains = factor(Strains, levels = 0:3))
+```
 
+```{r}
 ggplot(plot_data,
        aes(x = as.numeric(as.character(Strains)),
            y = rate,
@@ -30,6 +41,7 @@ ggplot(plot_data,
        fill = NULL) +
   theme_bw() +
   theme(panel.grid = element_blank())
+
 ```
 
 B
