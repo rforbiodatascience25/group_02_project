@@ -59,8 +59,35 @@ analysis_data <- analysis_data |>
   relocate(Age_Group, .after = Age) |> 
   relocate(Cytomegalovirus, .after = BMI) |> 
   relocate(EpsteinBarrvirus, .after = BMI ) |> 
-  select(-`CMV_pos`, -EBV_pos)
+  select(-`CMV_pos`, -EBV_pos) 
 
+```
+
+The code checks whether each person had a 4-fold antibody increase for the three flu strains, counts how many strains they responded to, and labels them as poor or good responders. It then reorganizes these new columns and summarizes response rates by age group and number of strains for plotting.
+
+```{r}
+analysis_data <- analysis_data |>
+  mutate(
+    H1N1_fold = (H1N1v3 / H1N1v1) >= 4,
+    B_fold    = (Bv3 / Bv1) >= 4,
+    H3N2_fold = (H3N2v3 / H3N2v1) >=4,
+    Strains = sc_H1N1 + sc_B + sc_H3N2,
+    Response_group = if_else(n_strains <= 1, "Poor responders", "Good responders")
+  )
+
+analysis_data <- analysis_data |>
+  relocate(H1N1_fold, B_fold, H3N2_fold, Strains, Response_group,
+           .after = Cytomegalovirus)
+
+view(analysis_data)
+
+plot_data <- analysis_data |>
+  group_by(Age_Group, n_strains) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(Age_Group) |>
+  mutate(rate = 100 * n / sum(n)) |>
+  ungroup() |>
+  mutate(n_strains = factor(n_strains, levels = 0:3))
 
 ```
 
