@@ -30,7 +30,7 @@ if(!file.exists(here("data", "_raw", "GSE41080_RAW.tar"))){
 }
 ```
 
-### Expression
+#### Expression
 
 ```{r}
 untar(here("data", "_raw", "GSE41080_RAW.tar"), 
@@ -65,7 +65,7 @@ data_expression <- read_delim(here("data", "expression", expression_files[2:92])
 write_tsv(data_expression, here("data","01_expression_dat_load.tsv.gz"))
 ```
 
-### Meta data
+#### Meta data
 
 The rows after row 89 contain no information and are as a result not included
 
