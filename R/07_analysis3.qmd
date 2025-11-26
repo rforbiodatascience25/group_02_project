@@ -3,3 +3,35 @@ title: "07_analysis3"
 format: html
 embed-resources: true
 ---
+
+A
+
+```{r}
+library(tidyverse)
+
+plot_data <- analysis_data |>
+  group_by(Age_Group, Strains) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(Age_Group) |>
+  mutate(rate = 100 * n / sum(n)) |>
+  ungroup() |>
+  mutate(Strains = factor(Strains, levels = 0:3))
+
+ggplot(plot_data,
+       aes(x = as.numeric(as.character(Strains)),
+           y = rate,
+           fill = Age_Group)) +
+  geom_col(position = "dodge", colour = "black", width = 0.7) +
+  scale_x_continuous(breaks = 0:3, labels = 0:3) +
+  scale_fill_manual(values = c("Older" = "white", "Young" = "black")) +
+  geom_vline(xintercept = 1.5, linetype = "dashed") +
+  labs(x = "Number of strains",
+       y = "Seroconversion rate (%)",
+       fill = NULL) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+B
+
+C
