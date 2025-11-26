@@ -61,7 +61,7 @@ ggplot(plot_b_data,
   geom_col(position = "fill", width = 0.6, colour = "black") +
   scale_y_continuous(labels = scales::percent_format()) +
   scale_fill_manual(values = c("Poor responders" = "white", "Good responders" = "black"),
-                    labels = c("NR", "R")) +
+                    labels = c("PR", "GR")) +
   labs(x = NULL,
        y = "Percent response",
        fill = NULL) +
@@ -74,5 +74,14 @@ ggplot(plot_b_data,
 C
 
 ```{r}
+plot_c_data <- analysis_data |>
+  mutate(pre_GMT = exp(rowMeans(log(cbind(H1N1v1, Bv1, H3N2v1)))),
+         log_pre_GMT = log(pre_GMT))
 
+ggplot(plot_c_data, aes(x = Age_Group, y = log_pre_GMT)) +
+  geom_boxplot(fill = "white", color = "black") +
+  labs(x = NULL, y = "log(pre-GMT)") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
 ```
