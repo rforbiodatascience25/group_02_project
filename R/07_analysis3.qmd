@@ -34,4 +34,33 @@ ggplot(plot_data,
 
 B
 
+```{r}
+plot_b_data <- analysis_data |>
+  count(Age_Group, Response_group) |>
+  group_by(Age_Group) |>
+  mutate(percent = 100 * n / sum(n),
+         Response_group = factor(Response_group, levels = c("Poor responders", "Good responders"))) |>
+  ungroup()
+
+ggplot(plot_b_data,
+       aes(x = Age_Group,
+           y = percent,
+           fill = Response_group)) +
+  geom_col(position = "fill", width = 0.6, colour = "black") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_manual(values = c("Poor responders" = "white", "Good responders" = "black"),
+                    labels = c("NR", "R")) +
+  labs(x = NULL,
+       y = "Percent response",
+       fill = NULL) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12))
+```
+
 C
+
+```{r}
+
+```
