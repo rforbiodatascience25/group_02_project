@@ -13,11 +13,14 @@ library("tidyverse")
 library("here")
 library("broom")
 library("patchwork")
+
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 ```
 
 ### PCA
 
 ```{r}
+#| message: false
 analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 ```
 

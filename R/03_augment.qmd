@@ -1,6 +1,7 @@
 ---
 title: "03_augment"
 format: html
+embed-resources: true
 ---
 
 Load the data from the final files.
@@ -14,12 +15,13 @@ analysis_data <- read_tsv(here("data","02_expression_dat_clean.tsv.gz"))
 In order to create the final dataset, we need to pivot wider the data with mRNA expression using as row names the sample IDs, column names will be the Probe IDs and the values are the signals for each Probe.
 
 ```{r}
+
+Pval <- analysis_data$Pval
+
 analysis_data <- analysis_data |> 
-  pivot_wider(
-    id_cols = file,         
-    names_from = PROBE_ID,  
-    values_from = Signal    
-  )
+  pivot_wider(id_cols = file,         
+              names_from = PROBE_ID,  
+              values_from = Signal) 
 ```
 
 We, also, need to connect the two datasets by the IDs.

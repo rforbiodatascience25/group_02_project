@@ -1,0 +1,5 @@
+project:
+  type: default
+  output-dir: "results"
+render:
+  preserve-path: false
