@@ -54,15 +54,15 @@ plot_b_data <- analysis_data |>
   ungroup() |>
   mutate(
     Age_Group = factor(Age_Group, levels = c("Young", "Older")),
-    Response_group = factor(Response_group, levels = c("Good responders", "Poor responders"))  
+    Response_group = factor(Response_group, levels = c("Poor responders", "Good responders"))  
   )
 
 ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
   geom_col(position = "fill", colour = "black", width = 0.6) +
   scale_x_continuous(labels = scales::percent_format()) +
   scale_fill_manual(
-    values = c("Good responders" = "black", "Poor responders" = "white"),
-    labels = c("GR", "PR")
+    values = c("Poor responders"="white", "Good responders" = "black"),
+    labels = c("PR", "GR")
   ) +
   labs(x = "Percent response", y = NULL, fill = NULL) +
   theme_bw() +
