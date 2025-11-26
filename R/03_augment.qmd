@@ -1,6 +1,7 @@
 ---
 title: "03_augment"
 format: html
+embed-resources: true
 ---
 
 Load the data from the final files.

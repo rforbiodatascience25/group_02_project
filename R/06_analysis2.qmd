@@ -1,4 +1,18 @@
 ---
 title: "06_analysis2"
 format: html
+embed-resources: true
 ---
+
+Load libraries and data
+
+```{r}
+#| message: false
+library("table1")
+library(tidyverse)
+library(here)
+source("99_proj_func.R")
+
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
+analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
+```
