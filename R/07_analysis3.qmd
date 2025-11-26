@@ -8,13 +8,8 @@ A
 
 ```{r}
 #| message: false
-
 library("tidyverse")
 library("here")
-library("broom")
-library("patchwork")
-
-Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 ```
 
 ```{r}
