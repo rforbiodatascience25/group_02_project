@@ -11,8 +11,97 @@ Load libraries and data
 library("table1")
 library(tidyverse)
 library(here)
+library(purrr)
+library(broom)
+library(ggrepel)
 source("99_proj_func.R")
 
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
 ```
+
+In this analysis, we are going to use the Probes signal prior to vaccination from all candidates to find possible biomarkers that predict the response to the vaccine.
+
+First step, is to make a long table of our data
+
+```{r}
+analysis_data_long <- analysis_data |>
+  select(file, Response_group, starts_with("ILMN_")) |> 
+  pivot_longer(cols = !c(file, Response_group),
+              names_to = "PROBE_ID",
+              values_to = "log2_signal")
+```
+
+Then, we apply T-test to the signal data for each probe comparing the Good responders to the Poor responders. Since we have the Fold Change between the 2 groups, we can now apply the tidy() formula to calculate the Pvalue, and from that the Pvalue adjusted.
+
+```{r}
+analysis_data_final <- analysis_data_long |> 
+  group_by(PROBE_ID) |> 
+  nest() |> 
+  mutate(
+    ttest_results = map(data, ~ t.test(.x$log2_signal ~ .x$Response_group, var.equal = FALSE)),
+    tidy_results = map(ttest_results, tidy)) |> 
+  unnest(tidy_results) |> 
+  ungroup() |> 
+  mutate(p.adj = p.adjust(p.value, method = "BH")) |> 
+  mutate(log2_FC = estimate1 - estimate2 ) |> 
+  select(PROBE_ID, log2_FC, p.value, p.adj) |> 
+  arrange(p.adj)
+
+
+```
+
+Let's visualize our results with a volcano plot.
+
+```{r}
+#| warning: false
+analysis_data_final |> 
+ggplot(aes(x = log2_FC, y = -log10(p.adj))) +
+  geom_point(aes(alpha = 0.05), color = "salmon", position="dodge") +
+  geom_text_repel(
+    data = analysis_data_final |> 
+           filter(p.adj < 0.03, abs(log2_FC) > 1.5),
+    aes(label = PROBE_ID),
+    size = 2.5,
+    color = "turquoise3",
+    max.overlaps = 50,
+    nudge_y = 0.1) +
+  scale_y_continuous(limits = c(0, max(-log10(analysis_data_final$p.adj), na.rm = TRUE) * 1.25)) +
+  labs(
+    title = "Probes predicting the vaccine response",
+    subtitle = "Probes highlighted in turquoise were significant after multiple testing correction",
+    x = expression(log[2]~"Fold Change (Good / Poor Responder)"),
+    y = expression(-log[10]~"Adjusted p-value (FDR)"),
+    caption = "Data from GSE41080") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+We observe that probes ILMN_1688780, ILMN_1739792 and ILMN_1697309 are the most differentiated probes, based on the visible distance from the center and high -log10(p.adj) value. In other words, these probes showed significantly lower baseline expression in candidates that proved to be good responders. To find the best predictor we will use a boxplot.
+
+```{r}
+#| warning: false
+analysis_data_long |> 
+  filter(PROBE_ID == c("ILMN_1688780", "ILMN_1739792", "ILMN_1697309")) |> 
+  ggplot(aes(x= Response_group, y = log2_signal, fill = Response_group)) +
+  geom_violin(trim = FALSE, alpha = 0.5) +
+  geom_boxplot(width = 0.15, fill = "white", outlier.shape = NA) +
+  geom_jitter(shape = 16, position = position_jitter(0.2), size = 2, alpha = 0.7) +
+  facet_wrap(~ PROBE_ID, scales = "free_y", ncol = 4) +
+  coord_cartesian(ylim = c(min(analysis_data_long$log2_signal, na.rm = TRUE) * 1.1, 
+                           max(analysis_data_long$log2_signal, na.rm = TRUE) * 1.05)) +
+  labs(
+    title ="Baseline Expression of possible Predictors:\nILMN_1688780, ILMN_1739792 and ILMN_1697309",
+    subtitle = "Lower pre-vaccine expression predicts a Good Response",
+    x = "Vaccine Antibody Response Group",
+    y = expression(log[2]~"Signal (Pre-Vaccine Expression)")
+  ) +
+  scale_fill_manual(values = c("Good responders" = "turquoise3", "Poor responders" = "salmon")) +
+  theme_minimal() +
+  theme(legend.position = "none",
+        # Fix: Angle x-axis text to prevent overlap in the facets
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Based on the final plot, we observe that the most significant differentiation between the two response groups comes from probe ILMN_1688780.
