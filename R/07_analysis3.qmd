@@ -51,36 +51,7 @@ analysis_data_final <- analysis_data_long |>
 
 ```
 
-<<<<<<< HEAD
-Improved version:
-
-```{r}
-plot_b_data <- analysis_data |>
-  count(Age_Group, Response_group) |>
-  group_by(Age_Group) |>
-  mutate(percent = 100 * n / sum(n)) |>
-  ungroup() |>
-  mutate(
-    Age_Group = factor(Age_Group, levels = c("Young", "Older")),
-    Response_group = factor(Response_group, levels = c("Poor responders", "Good responders"))  
-  )
-
-ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
-  geom_col(position = "fill", colour = "black", width = 0.6) +
-  scale_x_continuous(labels = scales::percent_format()) +
-  scale_fill_manual(
-    values = c("Poor responders"="#0072B2", "Good responders" = "#E69F00"),
-    labels = c("PR", "GR")
-  ) +
-  labs(x = "Percent response", y = NULL, fill = NULL) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
-```
-
-C
-=======
 Let's visualize our results with a volcano plot.
->>>>>>> d36ae90829936ad30cc0a4127db82d79ee2abdac
 
 ```{r}
 #| warning: false
