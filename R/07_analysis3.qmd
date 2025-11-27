@@ -100,7 +100,6 @@ analysis_data_long |>
   scale_fill_manual(values = c("Good responders" = "turquoise3", "Poor responders" = "salmon")) +
   theme_minimal() +
   theme(legend.position = "none",
-        # Fix: Angle x-axis text to prevent overlap in the facets
         axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
