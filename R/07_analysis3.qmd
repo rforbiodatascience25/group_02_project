@@ -51,8 +51,11 @@ analysis_data_final <- analysis_data_long |>
 
 ```
 
+<<<<<<< HEAD
 # C
 
+=======
+>>>>>>> 0a5a26a737b822084a4e0bad7b55c4a0446d122a
 Let's visualize our results with a volcano plot.
 
 ```{r}
@@ -102,7 +105,6 @@ analysis_data_long |>
   scale_fill_manual(values = c("Good responders" = "turquoise3", "Poor responders" = "salmon")) +
   theme_minimal() +
   theme(legend.position = "none",
-        # Fix: Angle x-axis text to prevent overlap in the facets
         axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
