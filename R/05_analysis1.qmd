@@ -80,13 +80,9 @@ pca |>
 ```{r}
 pca |> 
   augment(analysis_data) |> 
-  pivot_longer(cols = starts_with(".fitted"),
-               names_to = "PC",
-               values_to = "Coordinates") |> 
-  mutate(PC = str_extract(PC,
-                          "PC[0-9]+")) |>
-  pivot_wider(names_from = PC,
-              values_from = Coordinates) |> 
+  rename_with(.cols = starts_with(".fitted"),
+              .fn = ~str_extract(.x,
+                                 "PC[0-9]+")) |> 
   ggplot(aes(x = PC2, 
              y = PC3, 
              color = Response_group)) +
