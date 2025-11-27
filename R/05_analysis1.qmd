@@ -20,6 +20,8 @@ Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 
 ### PCA
 
+A PCA on just the signals from the probes is done to see if it can show a connection between the signals pre vaccine and the response to the vaccine
+
 ```{r}
 #| message: false
 analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
@@ -52,7 +54,11 @@ p2 <- pca_var |>
 p1 + p2
 ```
 
+The cumulative plot shows that the first 5 principal components explain over 70% of the variance. As a result they are examined to see if they can be used to separate good and poor responders.
+
 #### Data in principal component coordinates
+
+First the data in the coordinates for the 5 first principal components is split into good or poor response to find the 2 principal components that are most likely to separate them.
 
 ```{r}
 pca |> 
@@ -77,6 +83,8 @@ pca |>
         legend.title = element_blank())
 ```
 
+The plot shows that none of the 5 first principal componets separate the good and poor responders well. Principal component 2 and 3 are chosen as they show most separation and maybe together can separate the type of response better.
+
 ```{r}
 pca |> 
   augment(analysis_data) |> 
@@ -91,3 +99,5 @@ pca |>
   theme_minimal() +
   theme(legend.title = element_blank())
 ```
+
+The plot shows no separation so the PCA does not show a connection between the signals pre vaccine and the response to it.
