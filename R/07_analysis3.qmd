@@ -51,11 +51,8 @@ analysis_data_final <- analysis_data_long |>
 
 ```
 
-<<<<<<< HEAD
 # C
 
-=======
->>>>>>> 0a5a26a737b822084a4e0bad7b55c4a0446d122a
 Let's visualize our results with a volcano plot.
 
 ```{r}
