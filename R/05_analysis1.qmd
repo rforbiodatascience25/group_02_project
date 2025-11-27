@@ -40,12 +40,14 @@ pca_var <- pca |>
 
 p1 <- pca_var |> 
   ggplot(aes(PC, percent)) +
-  geom_col()
+  geom_col() +
+  theme_minimal()
   
 p2 <- pca_var |> 
   ggplot(aes(PC, cumulative)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  theme_minimal()
 
 p1 + p2
 ```
@@ -57,18 +59,39 @@ pca |>
   augment(analysis_data) |> 
   pivot_longer(cols = starts_with(".fitted"),
                names_to = "PC",
-               values_to = "value") |> 
+               values_to = "Coordinates") |> 
   mutate(PC = as.numeric(str_extract(PC,
                                      "[0-9]+"))) |> 
   filter(PC < 6) |> 
-  mutate(PC = as.character(PC)) |> 
-  ggplot(aes(x = value, y = PC, fill = Response_group)) +
-  geom_density_ridges(alpha = 0.5)
+  mutate(PC = factor(PC)) |> 
+  ggplot(aes(x = Coordinates, 
+             y = PC, 
+             fill = Response_group,
+             color = Response_group)) +
+  geom_density_ridges(alpha = 0.5,
+                      scale = 1.2) +
+  scale_fill_manual(values = c("#E69F00", "#0072B2")) +
+  scale_color_manual(values = c("#E69F00", "#0072B2")) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
 ```
 
 ```{r}
 pca |> 
   augment(analysis_data) |> 
-  ggplot(aes(.fittedPC2, .fittedPC3, color = Response_group)) +
-  geom_point()
+  pivot_longer(cols = starts_with(".fitted"),
+               names_to = "PC",
+               values_to = "Coordinates") |> 
+  mutate(PC = str_extract(PC,
+                          "PC[0-9]+")) |>
+  pivot_wider(names_from = PC,
+              values_from = Coordinates) |> 
+  ggplot(aes(x = PC2, 
+             y = PC3, 
+             color = Response_group)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("#E69F00", "#0072B2")) +
+  theme_minimal() +
+  theme(legend.title = element_blank())
 ```
