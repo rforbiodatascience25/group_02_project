@@ -4,6 +4,11 @@ format: html
 embed-resources: true
 ---
 
+```{r}
+library("tidyverse")
+library("here")
+```
+
 Load the data from the final files.
 
 ```{r}
