@@ -13,6 +13,7 @@ library("tidyverse")
 library("here")
 library("broom")
 library("patchwork")
+library("ggridges")
 
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 ```
@@ -54,6 +55,20 @@ p1 + p2
 ```{r}
 pca |> 
   augment(analysis_data) |> 
-  ggplot(aes(.fittedPC1, .fittedPC2, color = BMI)) +
+  pivot_longer(cols = starts_with(".fitted"),
+               names_to = "PC",
+               values_to = "value") |> 
+  mutate(PC = as.numeric(str_extract(PC,
+                                     "[0-9]+"))) |> 
+  filter(PC < 6) |> 
+  mutate(PC = as.character(PC)) |> 
+  ggplot(aes(x = value, y = PC, fill = Response_group)) +
+  geom_density_ridges(alpha = 0.5)
+```
+
+```{r}
+pca |> 
+  augment(analysis_data) |> 
+  ggplot(aes(.fittedPC2, .fittedPC3, color = Response_group)) +
   geom_point()
 ```

@@ -4,15 +4,82 @@ format: html
 embed-resources: true
 ---
 
-Load libraries and data
+A
 
 ```{r}
 #| message: false
-library("table1")
-library(tidyverse)
-library(here)
-source("99_proj_func.R")
+library("tidyverse")
+library("here")
+```
 
-Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
-analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
+```{r}
+#| message: false
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
+```
+
+```{r}
+plot_data <- analysis_data |>
+  group_by(Age_Group, Strains) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(Age_Group) |>
+  mutate(rate = 100 * n / sum(n)) |>
+  ungroup() |>
+  mutate(Strains = factor(Strains, levels = 0:3))
+```
+
+```{r}
+ggplot(plot_data,
+       aes(x = as.numeric(as.character(Strains)),
+           y = rate,
+           fill = Age_Group)) +
+  geom_col(position = "dodge", colour = "black", width = 0.7) +
+  scale_x_continuous(breaks = 0:3, labels = 0:3) +
+  scale_fill_manual(values = c("Older" = "white", "Young" = "black")) +
+  geom_vline(xintercept = 1.5, linetype = "dashed") +
+  labs(x = "Number of strains",
+       y = "Seroconversion rate (%)",
+       fill = NULL) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+```
+
+B
+
+```{r}
+plot_b_data <- analysis_data |>
+  count(Age_Group, Response_group) |>
+  group_by(Age_Group) |>
+  mutate(percent = 100 * n / sum(n)) |>
+  ungroup() |>
+  mutate(
+    Age_Group = factor(Age_Group, levels = c("Young", "Older")),
+    Response_group = factor(Response_group, levels = c("Poor responders", "Good responders"))  
+  )
+
+ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
+  geom_col(position = "fill", colour = "black", width = 0.6) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  scale_fill_manual(
+    values = c("Poor responders"="white", "Good responders" = "black"),
+    labels = c("PR", "GR")
+  ) +
+  labs(x = "Percent response", y = NULL, fill = NULL) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+C
+
+```{r}
+plot_c_data <- analysis_data |>
+  mutate(pre_GMT = exp(rowMeans(log(cbind(H1N1v1, Bv1, H3N2v1)))),
+         log_pre_GMT = log(pre_GMT))
+
+ggplot(plot_c_data, aes(x = Age_Group, y = log_pre_GMT)) +
+  geom_boxplot(fill = "white", color = "black") +
+  labs(x = NULL, y = "log(pre-GMT)") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
 ```
