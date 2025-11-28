@@ -41,17 +41,44 @@ pca_var <- pca |>
   tidy("eigenvalues")
 
 p1 <- pca_var |> 
-  ggplot(aes(PC, percent)) +
+  ggplot(aes(x = PC, 
+             y = percent,
+             fill = "#ED6F58",
+             color = "#ED6F58")) +
   geom_col() +
-  theme_minimal()
-  
-p2 <- pca_var |> 
-  ggplot(aes(PC, cumulative)) +
-  geom_line() +
-  geom_point() +
-  theme_minimal()
+  labs(title = "Individual",
+       subtitle = "All PCs",
+       y = "Explained Variance") +
+  theme_minimal() +
+  theme(legend.position = "none")
 
-p1 + p2
+p2 <- pca_var |> 
+  filter(PC < 6) |> 
+  ggplot(aes(x = PC, 
+             y = percent,
+             fill = "#ED6F58",
+             color = "#ED6F58")) +
+  geom_col() +
+  labs(title = "Individual",
+       subtitle = "5 first PCs",
+       y = "Explained Variance") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p3 <- pca_var |> 
+  ggplot(aes(x = PC, 
+             y = cumulative)) +
+  geom_line() +
+  geom_point(color = "#ED6F58") +
+  labs(title = "Cumulative",
+       y = "Explained Variance") +
+  scale_y_continuous(breaks = seq(from = 0.4,
+                                  to = 1,
+                                  by = 0.1)) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1 / (p2 + p3)
 ```
 
 The cumulative plot shows that the first 5 principal components explain over 70% of the variance. As a result they are examined to see if they can be used to separate good and poor responders.
@@ -97,7 +124,8 @@ pca |>
   geom_point(size = 3) +
   scale_color_manual(values = c("#E69F00", "#0072B2")) +
   theme_minimal() +
-  theme(legend.title = element_blank())
+  theme(legend.title = element_blank(),
+        legend.box.background = element_rect(color = "lightgrey"))
 ```
 
 The plot shows no separation so the PCA does not show a connection between the signals pre vaccine and the response to it.
