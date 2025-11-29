@@ -9,8 +9,8 @@ Loading the libraries we will need
 ```{r}
 #| message: false
 library("table1")
-library(tidyverse)
-library(here)
+library("tidyverse")
+library("here")
 source("99_proj_func.R")
 
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
@@ -20,7 +20,7 @@ Loading the dataset we are going to analyse.
 
 ```{r}
 #| message: false
-analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 
 ```
 

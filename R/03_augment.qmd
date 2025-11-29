@@ -5,6 +5,8 @@ embed-resources: true
 ---
 
 ```{r}
+#| message: false
+
 library("tidyverse")
 library("here")
 ```
@@ -14,7 +16,7 @@ Load the data from the final files.
 ```{r}
 #| message: false
 metadata <- read_tsv(here("data", "02_meta_dat_clean.tsv"))
-analysis_data <- read_tsv(here("data","02_expression_dat_clean.tsv.gz"))
+analysis_data <- read_tsv(here("data", "02_expression_dat_clean.tsv.gz"))
 ```
 
 In order to create the final dataset, we need to pivot wider the data with mRNA expression using as row names the sample IDs, column names will be the Probe IDs and the values are the signals for each Probe.
@@ -77,7 +79,7 @@ analysis_data <- analysis_data |>
   mutate(
     H1N1_fold = (H1N1v3 / H1N1v1) >= 4,
     B_fold    = (Bv3 / Bv1) >= 4,
-    H3N2_fold = (H3N2v3 / H3N2v1) >=4,
+    H3N2_fold = (H3N2v3 / H3N2v1) >= 4,
     Strains = H1N1_fold + B_fold + H3N2_fold,
     Response_group = if_else(Strains <= 1, "Poor responders", "Good responders")
   )
@@ -89,7 +91,7 @@ analysis_data <- analysis_data |>
 ```
 
 ```{r}
-write_tsv(analysis_data, here("data","03_expression_dat_aug.tsv.gz"))
+write_tsv(analysis_data, here("data", "03_expression_dat_aug.tsv.gz"))
 
 rm(list = ls())
 ```
