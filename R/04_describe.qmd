@@ -27,14 +27,14 @@ analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
 ```{r}
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>
-  summarize(Age_Median_Range = paste0(
+  summarize(Age_Median_Range = str_c(
       round(median(Age, na.rm = TRUE), 1), 
       " (", 
       min(Age, na.rm = TRUE), 
       "–", 
       max(Age, na.rm = TRUE), 
       ")"),
-    BMI_Median_Range = paste0(
+    BMI_Median_Range = str_c(
       round(median(BMI, na.rm = TRUE), 1), 
       " (", 
       min(BMI, na.rm = TRUE), 
