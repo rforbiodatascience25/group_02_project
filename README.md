@@ -12,7 +12,7 @@ In this project we will analyse the data produced in the paper "**Apoptosis and 
 
 In the original paper, blood samples were used from 89 participants pre- and post-vaccination and they were analysed with Illumina BeadScan, containing 48.771 probes.
 
-We will try to visualize the response of each participant to the vaccine (antibody presence) in correlation to age, gender, BMI, CMV/EBV positive and which probe presents better this response based on its signal.
+We will try to find a connection between the Probe signals pre vaccine and the response to the vaccine. We will, also, visualize the response of each participant to the vaccine (antibody presence) in correlation to gender by recreating the papers plots, and which probe could potentially be a predictor of the response to the vaccine.
 
 ### Loading the data
 

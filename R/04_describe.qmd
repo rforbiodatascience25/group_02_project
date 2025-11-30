@@ -24,6 +24,8 @@ analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 
 ```
 
+To describe the dataset, we are making two tables. The first table shows the average age and BMI of the two groups, Old and young, as well as the range of each measure in both groups. The second table shows the distribution of each group in the three variables: Gender, Cytomegalovirus and Epstein-Barr virus (positive/negative).
+
 ```{r}
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>

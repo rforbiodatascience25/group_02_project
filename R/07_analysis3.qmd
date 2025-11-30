@@ -8,7 +8,6 @@ Load libraries and data
 
 ```{r}
 #| message: false
-library("table1")
 library("tidyverse")
 library("here")
 library("purrr")
@@ -30,6 +29,7 @@ analysis_data_long <- analysis_data |>
   pivot_longer(cols = !c(file, Response_group),
               names_to = "PROBE_ID",
               values_to = "log2_signal")
+
 ```
 
 Then, we apply T-test to the signal data for each probe comparing the Good responders to the Poor responders. Since we have the Fold Change between the 2 groups, we can now apply the tidy() formula to calculate the Pvalue, and from that the Pvalue adjusted.
@@ -39,7 +39,7 @@ analysis_data_final <- analysis_data_long |>
   group_by(PROBE_ID) |> 
   nest() |> 
   mutate(
-    ttest_results = map(data, ~ t.test(.x$log2_signal ~ .x$Response_group, var.equal = FALSE)),
+    ttest_results = map(data, ~ t.test(log2_signal ~ Response_group, data = .x, var.equal = FALSE)),
     tidy_results = map(ttest_results, tidy)) |> 
   unnest(tidy_results) |> 
   ungroup() |> 
@@ -66,7 +66,7 @@ ggplot(aes(x = log2_FC, y = -log10(p.adj))) +
     color = "turquoise3",
     max.overlaps = 50,
     nudge_y = 0.1) +
-  scale_y_continuous(limits = c(0, max(-log10(analysis_data_final$p.adj), na.rm = TRUE) * 1.25)) +
+  scale_y_continuous(limits = c(0, max(-log10(analysis_data_final |> pull(p.adj)), na.rm = TRUE) * 1.25)) +
   labs(
     title = "Probes predicting the vaccine response",
     subtitle = "Probes highlighted in turquoise were significant after multiple testing correction",
@@ -78,21 +78,28 @@ ggplot(aes(x = log2_FC, y = -log10(p.adj))) +
 
 ```
 
-We observe that probes ILMN_1688780, ILMN_1739792 and ILMN_1697309 are the most differentiated probes, based on the visible distance from the center and high -log10(p.adj) value. In other words, these probes showed significantly lower baseline expression in candidates that proved to be good responders. To find the best predictor we will use a boxplot.
+```{r}
+#| message: false
+
+ggsave(filename = "07_volcano_plot.png",
+       path = here("results"))
+```
+
+We observe that probes ILMN_1688780 and ILMN_1739792 are the most differentiated probes, based on the visible distance from the center and high -log10(p.adj) value. In other words, these probes showed significantly lower baseline expression in candidates that proved to be good responders. To find the best predictor we will use a boxplot.
 
 ```{r}
 #| warning: false
 analysis_data_long |> 
-  filter(PROBE_ID == c("ILMN_1688780", "ILMN_1739792", "ILMN_1697309")) |> 
+  filter(PROBE_ID == c("ILMN_1688780", "ILMN_1739792")) |> 
   ggplot(aes(x= Response_group, y = log2_signal, fill = Response_group)) +
   geom_violin(trim = FALSE, alpha = 0.5) +
   geom_boxplot(width = 0.15, fill = "white", outlier.shape = NA) +
   geom_jitter(shape = 16, position = position_jitter(0.2), size = 2, alpha = 0.7) +
   facet_wrap(~ PROBE_ID, scales = "free_y", ncol = 4) +
-  coord_cartesian(ylim = c(min(analysis_data_long$log2_signal, na.rm = TRUE) * 1.1, 
-                           max(analysis_data_long$log2_signal, na.rm = TRUE) * 1.05)) +
+  coord_cartesian(ylim = c(min(analysis_data_long |> pull(log2_signal), na.rm = TRUE) * 1.1, 
+                           max(analysis_data_long |> pull(log2_signal), na.rm = TRUE) * 1.05)) +
   labs(
-    title ="Baseline Expression of possible Predictors:\nILMN_1688780, ILMN_1739792 and ILMN_1697309",
+    title ="Baseline Expression of possible Predictors:\nILMN_1688780 and ILMN_1739792",
     subtitle = "Lower pre-vaccine expression predicts a Good Response",
     x = "Vaccine Antibody Response Group",
     y = expression(log[2]~"Signal (Pre-Vaccine Expression)")
@@ -101,6 +108,13 @@ analysis_data_long |>
   theme_minimal() +
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#| message: false
+
+ggsave(filename = "07_boxplot.png",
+       path = here("results"))
 ```
 
 Based on the final plot, we observe that the most significant differentiation between the two response groups comes from probe ILMN_1688780.
