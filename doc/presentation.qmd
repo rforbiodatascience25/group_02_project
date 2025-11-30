@@ -32,9 +32,9 @@ editor: visual
                 │ Load & Extract               │   │ Load Metadata             │
                 │ Normalize Columns            │   │ Clean Variables           │
                 └──────────────┬───────────────┘   └──────────────┬────────────┘
-                                │                                  │
-                                │  02_clean                        │
-                                v                                  v
+                               │                                  │
+                               │  02_clean                        │
+                               v                                  v
                 ┌──────────────────────────────┐   ┌───────────────────────────┐
                 │ Filter Probes by Mean p < .05│   │ Remove Unneeded Fields    │
                 │                              │   │ (Season, VacType, etc.)   │
@@ -44,7 +44,7 @@ editor: visual
                                                   │
                                                   │  03_augment
                                                   v
-                                  ┌───────────────┼────────────────┐
+                                ┌─────────────────┼───────────────────┐
                  ┌───────────────────────────────┐     ┌────────────────────────────┐
                  │ Pivot Expression Wide         │     │ Define Response Group      │
                  │ (samples × probes)            │     │ Good vs Poor               │
