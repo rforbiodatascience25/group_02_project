@@ -9,6 +9,18 @@ editor: visual
 
 ## Introduction
 
+Data sourced from paper: "**Apoptosis and other immune biomarkers predict influenza vaccine responsiveness**"
+
+Focus of current project:
+
+-    Clean and augment data for analysis
+
+-   PCA
+
+-   Age analysis on antibody response to vaccine
+
+-   Prediction of vaccine response based on Probes signal
+
 ## Data
 
 ## Flow chart
@@ -78,6 +90,71 @@ editor: visual
 
 ## Data description
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r}
+numeric_summary <- analysis_data |>
+  group_by(Age_Group) |>
+  summarize(Age_Median_Range = str_c(
+      round(median(Age, na.rm = TRUE), 1), 
+      " (", 
+      min(Age, na.rm = TRUE), 
+      "–", 
+      max(Age, na.rm = TRUE), 
+      ")"),
+    BMI_Median_Range = str_c(
+      round(median(BMI, na.rm = TRUE), 1), 
+      " (", 
+      min(BMI, na.rm = TRUE), 
+      "–", 
+      max(BMI, na.rm = TRUE), 
+      ")"),
+    .groups = 'drop')
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+print(numeric_summary)
+```
+
+:::
+
+::::
+
+---
+
+:::: {.columns} ::: {.column width="40%"}
+
+```{r}
+gender_table <- get_categorical_summary(analysis_data, Gender) |> 
+  mutate(Variable = "Gender")
+cmv_table <- get_categorical_summary(analysis_data, Cytomegalovirus) |> 
+  mutate(Variable = "Cytomegalovirus")
+ebv_table <- get_categorical_summary(analysis_data, EpsteinBarrvirus) |> 
+  mutate(Variable = "EpsteinBarrvirus")
+
+categorical_summary <- bind_rows(gender_table, cmv_table, ebv_table)
+
+final_categorical_table <- categorical_summary |>
+  pivot_wider(names_from = Age_Group,
+              values_from = Value,
+              id_cols = c(Variable, Characteristic),
+              names_sort = TRUE)
+```
+
+::: ::: {.column width="60%"}
+
+```{r}
+print(final_categorical_table)
+```
+
+::: ::::
+
 ## PCA
 
 ![](/results/05_variance_plot.png)
@@ -97,6 +174,14 @@ editor: visual
 ## Plots from paper
 
 ## Biomarkers for prediction of response
+
+![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png)
+
+---
+
+To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
+
+![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups. ](images/07_boxplot.png)
 
 ## Quarto
 
