@@ -9,11 +9,13 @@ editor: visual
 
 ## Introduction
 
-Data sourced from paper: "**Apoptosis and other immune biomarkers predict influenza vaccine responsiveness**"
+**Data sourced from paper:**
 
-Focus of current project:
+"Apoptosis and other immune biomarkers predict influenza vaccine responsiveness"
 
--    Clean and augment data for analysis
+**Focus of current project:**
+
+-   Clean and augment data for analysis
 
 -   PCA
 
@@ -25,87 +27,92 @@ Focus of current project:
 
 ## Flow chart
 
-```{r}
-                                         ┌──────────────┐
-                                         │   Raw Data   │
-                                         └──────┬───────┘
-                                                │
-                              ┌─────────────────┼────────────────┐
-                              │                                  │                       
-                              v                                  v
-                ┌──────────────────────────────┐   ┌───────────────────────────┐
-                │ Raw Expression Files         │   │  Raw Metadata (msb201315  │
-                │ GSE41080_RAW.tar)            │   │ -s2.csv)                  │
-                └──────────────┬───────────────┘   └──────────────┬────────────┘
-                               │                                  │
-                               │  01_load                         │
-                               v                                  v
-                ┌──────────────────────────────┐   ┌───────────────────────────┐
-                │ Load & Extract               │   │ Load Metadata             │
-                │ Normalize Columns            │   │ Clean Variables           │
-                └──────────────┬───────────────┘   └──────────────┬────────────┘
-                               │                                  │
-                               │  02_clean                        │
-                               v                                  v
-                ┌──────────────────────────────┐   ┌───────────────────────────┐
-                │ Filter Probes by Mean p < .05│   │ Remove Unneeded Fields    │
-                │                              │   │ (Season, VacType, etc.)   │
-                └──────────────┬───────────────┘   └─────────────┬─────────────┘
-                               │                                 │
-                               └──────────────────┬──────────────┘
+```         
+                                     ┌──────────────┐
+                                     │   Raw Data   │
+                                           │
+                         ┌─────────────────┼────────────────┐
+                         │                                  │                       
+                         v                                  v
+            ┌──────────────────────────────┐   ┌───────────────────────────┐
+            │ Raw Expression Files         │   │  Raw Metadata (msb201315  │
+            │ GSE41080_RAW.tar)            │   │ -s2.csv)                  │
+            └──────────────┬───────────────┘   └──────────────┬────────────┘
+                           │                                  │
+                           │  01_load                         │
+                           v                                  v
+            ┌──────────────────────────────┐   ┌───────────────────────────┐
+            │ Load & Extract               │   │ Load Metadata             │
+            │ Normalize Columns            │   │ Clean Variables           │
+            └──────────────┬───────────────┘   └──────────────┬────────────┘
+                           │                                  │
+                           │  02_clean                        │
+                           v                                  v
+            ┌──────────────────────────────┐   ┌───────────────────────────┐   
+            │ Filter Probes by Mean p < .05│   │ Remove Unneeded Fields    │
+            │                              │   │ (Season, VacType, etc.)   │
+            └──────────────┬───────────────┘   └─────────────┬─────────────┘
+                           │                                 │
+                           └──────────────────┬──────────────┘
+                                              │  03_augment
+                                              v
+                            ┌─────────────────┼───────────────────┐
+             ┌───────────────────────────────┐     ┌────────────────────────────┐
+             │ Pivot Expression Wide         │     │ Define Response Group      │
+             │ (samples × probes)            │     │ Good vs Poor               │
+             └──────────────┬────────────────┘     └──────────────┬─────────────┘
+                            │                                     │
+                            └─────────────────────┬───────────────┘
                                                   │
-                                                  │  03_augment
+                                                  │  
                                                   v
-                                ┌─────────────────┼───────────────────┐
-                 ┌───────────────────────────────┐     ┌────────────────────────────┐
-                 │ Pivot Expression Wide         │     │ Define Response Group      │
-                 │ (samples × probes)            │     │ Good vs Poor               │
-                 └──────────────┬────────────────┘     └──────────────┬─────────────┘
-                                │                                     │
-                                └─────────────────────┬───────────────┘
-                                                      │
-                                                      │  
-                                                      v
-                                   ┌──────────────────────────────────┐
-                                   │   Merge Expression + Metadata    │
-                                   │   by Sample ID (file/GSM)        │
-                                   └──────────────────┬───────────────┘
-                                                      │
-                                                      │  04_describe
-                                                      v
-                                   ┌──────────────────────────────────┐
-                                   │      Final Analysis Dataset      │
-                                   │ (Demographics + Expression +     │
-                                   │    Response Phenotype + Titers)  │
-                                   └──────────────────┬───────────────┘
-                                                      │  05_analysis1
-                                                      v
-                      ┌──────────────────────────────────────────────────────────┐
-                      │                    Downstream Analyses                   │
-                      │  06_analysis2: PCA & Descriptive stats                   │
-                      │  07_analysis3: Volcano plot & Biomarker discovery        │
-                      │                      (t-tests, FC, FDR)                  │
-                      └──────────────────────────────────────────────────────────┘
-
+                               ┌──────────────────────────────────┐
+                               │   Merge Expression + Metadata    │
+                               │   by Sample ID (file/GSM)        │
+                               └──────────────────┬───────────────┘
+                                                  │
+                                                  │  04_describe
+                                                  v
+                               ┌──────────────────────────────────┐
+                               │      Final Analysis Dataset      │
+                               │ (Demographics + Expression +     │
+                               │    Response Phenotype + Titers)  │
+                               └──────────────────┬───────────────┘
+                                                  │  05_analysis1
+                                                  v
+                  ┌──────────────────────────────────────────────────────────┐
+                  │                    Downstream Analyses                   │
+                  │  06_analysis2: PCA & Descriptive stats                   │
+                  │  07_analysis3: Volcano plot & Biomarker discovery        │
+                  │                      (t-tests, FC, FDR)                  │
+                  └──────────────────────────────────────────────────────────┘
 ```
 
 ## Data description
 
-:::: {.columns}
-
-::: {.column width="40%"}
-
+::::: columns
+::: {.column width="50%"}
 ```{r}
+#| message: false
+#| echo: true
+library("table1")
+library("tidyverse")
+library("here")
+source(here("R", "99_proj_func.R"))
+
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
+
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>
-  summarize(Age_Median_Range = str_c(
+  summarize(Age_Range = str_c(
       round(median(Age, na.rm = TRUE), 1), 
       " (", 
       min(Age, na.rm = TRUE), 
       "–", 
       max(Age, na.rm = TRUE), 
       ")"),
-    BMI_Median_Range = str_c(
+    BMI_Range = str_c(
       round(median(BMI, na.rm = TRUE), 1), 
       " (", 
       min(BMI, na.rm = TRUE), 
@@ -114,24 +121,21 @@ numeric_summary <- analysis_data |>
       ")"),
     .groups = 'drop')
 ```
-
 :::
 
-::: {.column width="60%"}
-
+::: {.column width="50%"}
 ```{r}
 print(numeric_summary)
 ```
-
 :::
+:::::
 
-::::
+------------------------------------------------------------------------
 
----
-
-:::: {.columns} ::: {.column width="40%"}
-
+::::: columns
+::: {.column width="40%"}
 ```{r}
+#| echo: true
 gender_table <- get_categorical_summary(analysis_data, Gender) |> 
   mutate(Variable = "Gender")
 cmv_table <- get_categorical_summary(analysis_data, Cytomegalovirus) |> 
@@ -147,58 +151,53 @@ final_categorical_table <- categorical_summary |>
               id_cols = c(Variable, Characteristic),
               names_sort = TRUE)
 ```
+:::
 
-::: ::: {.column width="60%"}
-
+::: {.column width="60%"}
 ```{r}
 print(final_categorical_table)
 ```
-
-::: ::::
-
-## PCA
-
-![](/results/05_variance_plot.png)
-
-## PCA
-
-::::: columns
-::: column
-![](/results/05_1d_plot.png)
-:::
-
-::: column
-![](/results/05_2d_plot.png)
 :::
 :::::
+
+------------------------------------------------------------------------
+
+## PCA
+
+![](images/05_variance_plot.png)
+
+------------------------------------------------------------------------
+
+::::: columns
+::: {.column width="50%"}
+![](images/05_1d_plot-01.png)
+:::
+
+::: {.column width="50%"}
+![](images/05_2d_plot.png)
+:::
+:::::
+
+---
 
 ## Plots from paper
 
 ## Biomarkers for prediction of response
 
-![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png)
+![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png){alt="Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792"}
 
 ---
 
+:::: {.columns}
+
+::: {.column width="40%"}
+
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 
-![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups. ](images/07_boxplot.png)
+:::
 
-## Quarto
+::: {.column width="60%"}
+![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot-01.png)
+:::
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
+::::
