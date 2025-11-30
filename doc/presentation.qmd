@@ -3,6 +3,7 @@ title: "Group 2"
 format: 
   revealjs:
     slide-number: "c/t"
+    theme: serif
 embed-resources: true
 editor: visual
 ---
@@ -94,7 +95,6 @@ editor: visual
 ::: {.column width="50%"}
 ```{r}
 #| message: false
-#| echo: true
 library("table1")
 library("tidyverse")
 library("here")
@@ -103,6 +103,11 @@ source(here("R", "99_proj_func.R"))
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 
+
+```
+
+```{r}
+#| echo: true
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>
   summarize(Age_Range = str_c(
@@ -178,26 +183,22 @@ print(final_categorical_table)
 :::
 :::::
 
----
+------------------------------------------------------------------------
 
 ## Plots from paper
 
 ## Biomarkers for prediction of response
 
-![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png){alt="Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792"}
+![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png)
 
----
+------------------------------------------------------------------------
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
-
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
-
 :::
 
 ::: {.column width="60%"}
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot-01.png)
 :::
-
-::::
+:::::
