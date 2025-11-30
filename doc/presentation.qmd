@@ -13,6 +13,69 @@ editor: visual
 
 ## Flow chart
 
+```{r}
+                                      ┌──────────────┐
+                                      │   RawData    │
+                                      └──────┬───────┘
+                                             │
+                             ┌───────────────┼────────────────┐
+                             │                                │                       
+                             v                                v
+                ┌──────────────────────────────┐   ┌───────────────────────────┐
+                │ Raw Expression Files         │   │  Raw Metadata (msb201315  │
+                │ (91 .txt + GSE41080_RAW.tar) │   │ -s2.csv)                  │
+                └──────────────┬───────────────┘   └──────────────┬────────────┘
+                                │                                 │
+                                │  01_load                        │
+                                v                                 v
+                ┌──────────────────────────────┐   ┌───────────────────────────┐
+                │ Load & Extract               │   │ Load Metadata              │
+                │ Normalize Columns            │   │ Clean Variables            │
+                └──────────────┬───────────────┘   └──────────────┬─────────────┘
+                                │                                  │
+                                │  02_clean                        │
+                                v                                  v
+                ┌──────────────────────────────┐   ┌───────────────────────────┐
+                │ Filter Probes by Mean p < .05│   │ Remove Unneeded Fields    │
+                │                              │   │ (Season, VacType, etc.)   │
+                └──────────────┬───────────────┘   └─────────────┬─────────────┘
+                               │                                 │
+                               └──────────────────┬──────────────┘
+                                                   │
+                                                   │  03_augment
+                                                   v
+                 ┌───────────────────────────────┐     ┌────────────────────────────┐
+                 │ Pivot Expression Wide         │     │ Define Response Group      │
+                 │ (samples × probes)            │     │ Good vs Poor               │
+                 └──────────────┬────────────────┘     └──────────────┬─────────────┘
+                                │                                     │
+                                └──────────────────────┬──────────────┘
+                                                       │
+                                                       │  04_describe
+                                                       v
+                                   ┌──────────────────────────────────┐
+                                   │   Merge Expression + Metadata    │
+                                   │   by Sample ID (file/GSM)        │
+                                   └──────────────────┬───────────────┘
+                                                      │
+                                                      │  05_analysis1
+                                                      v
+                                   ┌──────────────────────────────────┐
+                                   │      Final Analysis Dataset      │
+                                   │ (Demographics + Expression +     │
+                                   │    Response Phenotype + Titers)  │
+                                   └──────────────────┬───────────────┘
+                                                      │
+                                                      v
+                      ┌──────────────────────────────────────────────────────────┐
+                      │                    Downstream Analyses                   │
+                      │  06_analysis2: PCA & Descriptive stats                   │
+                      │  07_analysis3: Volcano plot & Biomarker discovery        │
+                      │                      (t-tests, FC, FDR)                  │
+                      └──────────────────────────────────────────────────────────┘
+
+```
+
 ## Data description
 
 ## PCA
