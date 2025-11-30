@@ -25,13 +25,13 @@ editor: visual
                 │ Raw Expression Files         │   │  Raw Metadata (msb201315  │
                 │ GSE41080_RAW.tar)            │   │ -s2.csv)                  │
                 └──────────────┬───────────────┘   └──────────────┬────────────┘
-                                │                                 │
-                                │  01_load                        │
-                                v                                 v
+                               │                                  │
+                               │  01_load                         │
+                               v                                  v
                 ┌──────────────────────────────┐   ┌───────────────────────────┐
-                │ Load & Extract               │   │ Load Metadata              │
-                │ Normalize Columns            │   │ Clean Variables            │
-                └──────────────┬───────────────┘   └──────────────┬─────────────┘
+                │ Load & Extract               │   │ Load Metadata             │
+                │ Normalize Columns            │   │ Clean Variables           │
+                └──────────────┬───────────────┘   └──────────────┬────────────┘
                                 │                                  │
                                 │  02_clean                        │
                                 v                                  v
@@ -50,23 +50,23 @@ editor: visual
                  │ (samples × probes)            │     │ Good vs Poor               │
                  └──────────────┬────────────────┘     └──────────────┬─────────────┘
                                 │                                     │
-                                └──────────────────────┬──────────────┘
-                                                       │
-                                                       │  04_describe
-                                                       v
+                                └─────────────────────┬───────────────┘
+                                                      │
+                                                      │  
+                                                      v
                                    ┌──────────────────────────────────┐
                                    │   Merge Expression + Metadata    │
                                    │   by Sample ID (file/GSM)        │
                                    └──────────────────┬───────────────┘
                                                       │
-                                                      │  05_analysis1
+                                                      │  04_describe
                                                       v
                                    ┌──────────────────────────────────┐
                                    │      Final Analysis Dataset      │
                                    │ (Demographics + Expression +     │
                                    │    Response Phenotype + Titers)  │
                                    └──────────────────┬───────────────┘
-                                                      │
+                                                      │  05_analysis1
                                                       v
                       ┌──────────────────────────────────────────────────────────┐
                       │                    Downstream Analyses                   │
