@@ -81,6 +81,13 @@ p3 <- pca_var |>
 p1 / (p2 + p3)
 ```
 
+```{r}
+#| message: false
+
+ggsave(filename = "05_variance_plot.png",
+       path = here("results"))
+```
+
 The cumulative plot shows that the first 5 principal components explain over 70% of the variance. As a result they are examined to see if they can be used to separate good and poor responders.
 
 #### Data in principal component coordinates

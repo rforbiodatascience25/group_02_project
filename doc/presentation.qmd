@@ -17,6 +17,8 @@ editor: visual
 
 ## PCA
 
+![](/results/05_variance_plot.png)
+
 ## Plots from paper
 
 ## Biomarkers for prediction of response
