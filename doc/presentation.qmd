@@ -169,17 +169,17 @@ print(final_categorical_table)
 
 ## PCA
 
-![](images/05_variance_plot.png)
+![](/results/05_variance_plot.png){fig-align="center"}
 
 ------------------------------------------------------------------------
 
 ::::: columns
 ::: {.column width="50%"}
-![](images/05_1d_plot-01.png)
+![](/results/05_1d_plot.png)
 :::
 
 ::: {.column width="50%"}
-![](images/05_2d_plot.png)
+![](/results/05_2d_plot.png)
 :::
 :::::
 
@@ -189,7 +189,7 @@ print(final_categorical_table)
 
 ## Biomarkers for prediction of response
 
-![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png)
+![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](/results/07_volcano_plot.png)
 
 ------------------------------------------------------------------------
 
@@ -199,6 +199,6 @@ To find the most significant Probe that could potentially predict vaccine respon
 :::
 
 ::: {.column width="60%"}
-![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot-01.png)
+![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](/results/07_boxplot.png)
 :::
 :::::
