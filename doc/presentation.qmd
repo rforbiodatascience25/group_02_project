@@ -19,6 +19,18 @@ editor: visual
 
 ![](/results/05_variance_plot.png)
 
+## PCA
+
+::::: columns
+::: column
+![](/results/05_1d_plot.png)
+:::
+
+::: column
+![](/results/05_2d_plot.png)
+:::
+:::::
+
 ## Plots from paper
 
 ## Biomarkers for prediction of response
