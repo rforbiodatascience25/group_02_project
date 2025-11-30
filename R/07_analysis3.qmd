@@ -9,15 +9,15 @@ Load libraries and data
 ```{r}
 #| message: false
 library("table1")
-library(tidyverse)
-library(here)
-library(purrr)
-library(broom)
-library(ggrepel)
+library("tidyverse")
+library("here")
+library("purrr")
+library("broom")
+library("ggrepel")
 source("99_proj_func.R")
 
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
-analysis_data <- read_tsv(here("data","03_expression_dat_aug.tsv.gz"))
+analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 ```
 
 In this analysis, we are going to use the Probes signal prior to vaccination from all candidates to find possible biomarkers that predict the response to the vaccine.

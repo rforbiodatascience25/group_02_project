@@ -1,9 +1,25 @@
 ---
 title: "Group 2"
-format: revealjs
+format: 
+  revealjs:
+    slide-number: "c/t"
 embed-resources: true
 editor: visual
 ---
+
+## Introduction
+
+## Data
+
+## Flow chart
+
+## Data description
+
+## PCA
+
+## Plots from paper
+
+## Biomarkers for prediction of response
 
 ## Quarto
 

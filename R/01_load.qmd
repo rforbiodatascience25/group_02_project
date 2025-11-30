@@ -44,6 +44,8 @@ expression_files <- list.files(here("data", "expression"))
 The first file in expression_files is a reference file for the probe IDs in the other files. We do not use this file and as a result it is not read. The column names are added manually and the first line skipped because column names in the files contain the general column name plus a number that is different.
 
 ```{r}
+#| message: false
+
 data_expression <- read_delim(here("data", "expression", expression_files[2:92]), 
                               id = "file", 
                               col_names = c("PROBE_ID",
@@ -56,13 +58,12 @@ data_expression <- read_delim(here("data", "expression", expression_files[2:92])
                                             "NBEADS2",
                                             "SEARCH_KEY"), 
                               skip = 1,
-                              na = "NaN",
-                              show_col_types = FALSE) |> 
+                              na = "NaN") |> 
   mutate(file = str_extract(file, "GSM[0-9]+"))
 ```
 
 ```{r}
-write_tsv(data_expression, here("data","01_expression_dat_load.tsv.gz"))
+write_tsv(data_expression, here("data", "01_expression_dat_load.tsv.gz"))
 ```
 
 #### Meta data
@@ -71,7 +72,11 @@ The rows after row 89 contain no information and are as a result not included
 
 ```{r}
 #| message: false
-metadata <- read_delim("../data/_raw/msb201315-s2.csv", delim = ',', na = "NA" , n_max= 89)
+
+metadata <- read_delim(here("data", "_raw", "msb201315-s2.csv"), 
+                       delim = ",", 
+                       na = "NA" , 
+                       n_max= 89)
 ```
 
 ```{r}

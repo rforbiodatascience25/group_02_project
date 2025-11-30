@@ -24,3 +24,31 @@ editor: visual
 # 05_analysis1
 
 {{< include 05_analysis1.qmd >}}
+
+# 06_analysis2
+
+{{< include 06_analysis2.qmd >}}
+
+# 07_analysis3
+
+{{< include 07_analysis3.qmd >}}
+
+```{r}
+#| include: false
+
+library("quarto")
+library("here")
+library("fs")
+
+quarto_render("01_load.qmd")
+quarto_render("02_clean.qmd")
+quarto_render("03_augment.qmd")
+quarto_render("04_describe.qmd")
+quarto_render("05_analysis1.qmd")
+quarto_render("06_analysis2.qmd")
+quarto_render("07_analysis3.qmd")
+
+quarto_render(here("doc", "presentation.qmd"))
+file_move(here("results", "doc", "presentation.html"),
+          here("doc", "presentation.html"))
+```
