@@ -117,6 +117,13 @@ pca |>
         legend.title = element_blank())
 ```
 
+```{r}
+#| message: false
+
+ggsave(filename = "05_1d_plot.png",
+       path = here("results"))
+```
+
 The plot shows that none of the 5 first principal componets separate the good and poor responders well. Principal component 2 and 3 are chosen as they show most separation and maybe together can separate the type of response better.
 
 ```{r}
@@ -133,6 +140,13 @@ pca |>
   theme_minimal() +
   theme(legend.title = element_blank(),
         legend.box.background = element_rect(color = "lightgrey"))
+```
+
+```{r}
+#| message: false
+
+ggsave(filename = "05_2d_plot.png",
+       path = here("results"))
 ```
 
 The plot shows no separation so the PCA does not show a connection between the signals pre vaccine and the response to it.
