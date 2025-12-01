@@ -4,7 +4,9 @@ format: html
 embed-resources: true
 ---
 
-A
+To examine the connection between poor or good response to the vaccine and some of the metadata the figures in figure 2 in the paper are recreated
+
+Plot A:
 
 ```{r}
 #| message: false
@@ -46,6 +48,8 @@ ggplot(plot_data,
 
 ```
 
+If only 0 or 1 of the strains had a 4-fold antibody increase they were labeled poor responders (left of the dotted line). The good responders were those where 2 or 3 of the strains had a 4-fold antibody increase (right of the dotted line).
+
 ```{r}
 #| message: false
 
@@ -53,7 +57,7 @@ ggsave(filename = "06_A_plot.png",
        path = here("results"))
 ```
 
-B
+Plot B:
 
 ```{r}
 plot_b_data <- analysis_data |>
@@ -78,6 +82,8 @@ ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
   theme(panel.grid = element_blank())
 ```
 
+There is larger percent of the young age group that are good responders than in the older age group. The color of the plot makes it difficult to see that the white is also a group so it is improved with color.
+
 ```{r}
 #| message: false
 
@@ -85,7 +91,7 @@ ggsave(filename = "06_B1_plot.png",
        path = here("results"))
 ```
 
-Improved version:
+Improved version of plot B:
 
 ```{r}
 plot_b_data <- analysis_data |>
@@ -117,7 +123,7 @@ ggsave(filename = "06_B2_plot.png",
        path = here("results"))
 ```
 
-C
+Plot C:
 
 ```{r}
 plot_c_data <- analysis_data |>
@@ -131,6 +137,8 @@ ggplot(plot_c_data, aes(x = Age_Group, y = log_pre_GMT)) +
   theme(panel.grid = element_blank(),
         legend.position = "none")
 ```
+
+The geometric mean titer pre vaccine is higher in the young age group than in the older
 
 ```{r}
 #| message: false
