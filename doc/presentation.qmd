@@ -14,11 +14,10 @@ editor: visual
 
 "Apoptosis and other immune biomarkers predict influenza vaccine responsiveness"
 
-<<<<<<< HEAD
-=======
+
 **Focus of current project:**
 
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
 -   Clean and augment data for analysis
 
 -   PCA
@@ -95,9 +94,8 @@ editor: visual
 ## Data description
 
 ::::: columns
-<<<<<<< HEAD
 ::: {.column width="40%"}
-=======
+
 ::: {.column width="50%"}
 ```{r}
 #| message: false
@@ -112,7 +110,7 @@ analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 
 ```
 
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
 ```{r}
 #| echo: true
 numeric_summary <- analysis_data |>
@@ -135,11 +133,10 @@ numeric_summary <- analysis_data |>
 ```
 :::
 
-<<<<<<< HEAD
 ::: {.column width="60%"}
-=======
+
 ::: {.column width="50%"}
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
 ```{r}
 print(numeric_summary)
 ```
@@ -147,11 +144,9 @@ print(numeric_summary)
 :::::
 
 ------------------------------------------------------------------------
-<<<<<<< HEAD
-
 :::: {.columns} ::: {.column width="40%"}
-=======
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
+
 
 ::::: columns
 ::: {.column width="40%"}
@@ -181,12 +176,11 @@ print(final_categorical_table)
 :::
 :::::
 
-<<<<<<< HEAD
 :::::: ::::
-=======
+
 ------------------------------------------------------------------------
 
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
 ## PCA
 
 ![](/results/05_variance_plot.png){fig-align="center"}
@@ -218,7 +212,7 @@ print(final_categorical_table)
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 :::
 
-<<<<<<< HEAD
+
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot.png)
 
 ## Quarto
@@ -240,9 +234,9 @@ When you click the **Render** button a presentation will be generated that inclu
 
 ```
 ::::::
-=======
+
 ::: {.column width="60%"}
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](/results/07_boxplot.png)
 :::
 :::::
->>>>>>> 7507fb574fdf1d97df440c71e580d51b4cc6f226
+
