@@ -19,3 +19,7 @@ We will try to find a connection between the Probe signals pre vaccine and the r
 For the BeadScan dataset (GEO repository accession number [GSE41080](https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41080)) , we created the 01_load.qmd script, which we used to download and load the data in a data frame.
 
 For the metadata file, we had to download it from the supplementary material of the paper, under the Data set 1 with file name [msb201315-s2.csv](https://pmc.ncbi.nlm.nih.gov/articles/instance/3658270/bin/msb201315-s2.csv). Then, we manually uploaded it to the /data/*raw* folder, previously created for the dataset, and we loaded it to the environment with the corresponding section of 01_load.qmd script.
+
+### Running the project
+
+The entire project can be run by rendering 00_all.qmd in the R folder.
