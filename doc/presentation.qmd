@@ -24,10 +24,9 @@ editor: visual
 
 -   Prediction of vaccine response based on Probes signal
 
-
 ## Flow chart
 
-![](/results/FlowChart.drawio.png){width="60%"}
+![Made with draw.io](/results/FlowChart.drawio.png){width="60%"}
 
 ## Data description
 
@@ -73,11 +72,11 @@ numeric_summary <- analysis_data |>
 print(numeric_summary)
 ```
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
 
-:::: {.columns}
+::::: columns
 ::: {.column width="40%"}
 ```{r}
 #| echo: true
@@ -103,13 +102,13 @@ final_categorical_table <- categorical_summary |>
 print(final_categorical_table)
 ```
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
 
 ## Plots from paper
 
-:::: {.columns}
+::::: columns
 ::: {.column width="50%"}
 ![](/results/06_A_plot.png)
 :::
@@ -117,19 +116,19 @@ print(final_categorical_table)
 ::: {.column width="50%"}
 ![](/results/06_C_plot.png)
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
 
-:::: {.columns}
+::::: columns
 ::: {.column width="50%"}
-![](/results/06_B1_plot.png)
+![From paper](/results/06_B1_plot.png)
 :::
 
 ::: {.column width="50%"}
-![](/results/06_B2_plot.png)
+![Improved](/results/06_B2_plot.png)
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
 
@@ -139,19 +138,17 @@ print(final_categorical_table)
 
 ------------------------------------------------------------------------
 
-:::: {.columns}
+::::: columns
 ::: {.column width="50%"}
-![](/results/05_1d_plot.png)
+![Not well separated but PC2 and PC3 most separated](/results/05_1d_plot.png)
 :::
 
 ::: {.column width="50%"}
-![](/results/05_2d_plot.png)
+![No separation](/results/05_2d_plot.png)
 :::
-::::
+:::::
 
 ------------------------------------------------------------------------
-
-
 
 ## Biomarkers for prediction of response
 
@@ -159,7 +156,7 @@ print(final_categorical_table)
 
 ------------------------------------------------------------------------
 
-:::: {.columns}
+::::: columns
 ::: {.column width="40%"}
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 :::
@@ -167,4 +164,4 @@ To find the most significant Probe that could potentially predict vaccine respon
 ::: {.column width="60%"}
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](/results/07_boxplot.png)
 :::
-::::
+:::::

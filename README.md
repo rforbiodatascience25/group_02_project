@@ -4,7 +4,7 @@
 
 AnastasiaKampantai - s253724, hannahnorrelykke - s224972, MieHeLarsen - s224976, RamintaJonauskaite - s254123
 
-**link to presentation**
+**Link to presentation:** <https://raw.githack.com/rforbiodatascience25/group_02_project/main/doc/presentation.html>
 
 ### Description
 
