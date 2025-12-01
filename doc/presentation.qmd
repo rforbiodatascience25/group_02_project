@@ -14,9 +14,7 @@ editor: visual
 
 "Apoptosis and other immune biomarkers predict influenza vaccine responsiveness"
 
-
 **Focus of current project:**
-
 
 -   Clean and augment data for analysis
 
@@ -30,72 +28,14 @@ editor: visual
 
 ## Flow chart
 
-```         
-                                     ┌──────────────┐
-                                     │   Raw Data   │
-                                           │
-                         ┌─────────────────┼────────────────┐
-                         │                                  │                       
-                         v                                  v
-            ┌──────────────────────────────┐   ┌───────────────────────────┐
-            │ Raw Expression Files         │   │  Raw Metadata (msb201315  │
-            │ GSE41080_RAW.tar)            │   │ -s2.csv)                  │
-            └──────────────┬───────────────┘   └──────────────┬────────────┘
-                           │                                  │
-                           │  01_load                         │
-                           v                                  v
-            ┌──────────────────────────────┐   ┌───────────────────────────┐
-            │ Load & Extract               │   │ Load Metadata             │
-            │ Normalize Columns            │   │ Clean Variables           │
-            └──────────────┬───────────────┘   └──────────────┬────────────┘
-                           │                                  │
-                           │  02_clean                        │
-                           v                                  v
-            ┌──────────────────────────────┐   ┌───────────────────────────┐   
-            │ Filter Probes by Mean p < .05│   │ Remove Unneeded Fields    │
-            │                              │   │ (Season, VacType, etc.)   │
-            └──────────────┬───────────────┘   └─────────────┬─────────────┘
-                           │                                 │
-                           └──────────────────┬──────────────┘
-                                              │  03_augment
-                                              v
-                            ┌─────────────────┼───────────────────┐
-             ┌───────────────────────────────┐     ┌────────────────────────────┐
-             │ Pivot Expression Wide         │     │ Define Response Group      │
-             │ (samples × probes)            │     │ Good vs Poor               │
-             └──────────────┬────────────────┘     └──────────────┬─────────────┘
-                            │                                     │
-                            └─────────────────────┬───────────────┘
-                                                  │
-                                                  │  
-                                                  v
-                               ┌──────────────────────────────────┐
-                               │   Merge Expression + Metadata    │
-                               │   by Sample ID (file/GSM)        │
-                               └──────────────────┬───────────────┘
-                                                  │
-                                                  │  04_describe
-                                                  v
-                               ┌──────────────────────────────────┐
-                               │      Final Analysis Dataset      │
-                               │ (Demographics + Expression +     │
-                               │    Response Phenotype + Titers)  │
-                               └──────────────────┬───────────────┘
-                                                  │  05_analysis1
-                                                  v
-                  ┌──────────────────────────────────────────────────────────┐
-                  │                    Downstream Analyses                   │
-                  │  06_analysis2: PCA & Descriptive stats                   │
-                  │  07_analysis3: Volcano plot & Biomarker discovery        │
-                  │                      (t-tests, FC, FDR)                  │
-                  └──────────────────────────────────────────────────────────┘
-```
+The project work flow: 
+![](../results/FlowChart.drawio.png){width="80%"}
+
 
 ## Data description
 
-::::: columns
-::: {.column width="40%"}
-
+::::::::::::::::: columns
+:::::::::::::::: {.column width="40%"}
 ::: {.column width="50%"}
 ```{r}
 #| message: false
@@ -109,7 +49,6 @@ analysis_data <- read_tsv(here("data", "03_expression_dat_aug.tsv.gz"))
 
 
 ```
-
 
 ```{r}
 #| echo: true
@@ -133,20 +72,17 @@ numeric_summary <- analysis_data |>
 ```
 :::
 
-::: {.column width="60%"}
-
+:::: {.column width="60%"}
 ::: {.column width="50%"}
-
 ```{r}
 print(numeric_summary)
 ```
 :::
-:::::
+::::
 
 ------------------------------------------------------------------------
+
 :::: {.columns} ::: {.column width="40%"}
-
-
 
 ::::: columns
 ::: {.column width="40%"}
@@ -176,10 +112,9 @@ print(final_categorical_table)
 :::
 :::::
 
-:::::: ::::
+::::::::: ::::
 
 ------------------------------------------------------------------------
-
 
 ## PCA
 
@@ -207,11 +142,10 @@ print(final_categorical_table)
 
 ------------------------------------------------------------------------
 
-::::: columns
+:::: columns
 ::: {.column width="40%"}
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 :::
-
 
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot.png)
 
@@ -233,10 +167,11 @@ When you click the **Render** button a presentation will be generated that inclu
 ```{r}
 
 ```
-::::::
+::::
 
 ::: {.column width="60%"}
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](/results/07_boxplot.png)
 :::
-:::::
-
+:::::::::
+::::::::::::::::
+:::::::::::::::::
