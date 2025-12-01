@@ -20,7 +20,7 @@ Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 
 ### PCA
 
-A PCA on just the signals from the probes is done to see if it can show a connection between the signals pre vaccine and the response to the vaccine
+A PCA on just the signals from the probes is done to see if it can show a connection between the signals pre vaccine and the response to the vaccine. The PCA is done with inspiration from ["PCA tidyverse style" by Claus O. Wilke](https://clauswilke.com/blog/2020/09/07/pca-tidyverse-style/)
 
 ```{r}
 #| message: false
