@@ -95,6 +95,8 @@ The cumulative plot shows that the first 5 principal components explain over 70%
 First the data in the coordinates for the 5 first principal components is split into good or poor response to find the 2 principal components that are most likely to separate them.
 
 ```{r}
+#| message: false
+
 pca |> 
   augment(analysis_data) |> 
   pivot_longer(cols = starts_with(".fitted"),
