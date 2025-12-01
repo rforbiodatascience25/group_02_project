@@ -10,6 +10,8 @@ A
 #| message: false
 library("tidyverse")
 library("here")
+
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 ```
 
 ```{r}
@@ -76,6 +78,13 @@ ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
   theme(panel.grid = element_blank())
 ```
 
+```{r}
+#| message: false
+
+ggsave(filename = "06_B1_plot.png",
+       path = here("results"))
+```
+
 Improved version:
 
 ```{r}
@@ -104,7 +113,7 @@ ggplot(plot_b_data, aes(y = Age_Group, x = percent, fill = Response_group)) +
 ```{r}
 #| message: false
 
-ggsave(filename = "06_B_plot.png",
+ggsave(filename = "06_B2_plot.png",
        path = here("results"))
 ```
 

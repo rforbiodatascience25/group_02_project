@@ -24,16 +24,15 @@ editor: visual
 
 -   Prediction of vaccine response based on Probes signal
 
-## Data
 
 ## Flow chart
- ![](/results/FlowChart.drawio.png){width="60%"}
+
+![](/results/FlowChart.drawio.png){width="60%"}
 
 ## Data description
 
-::::::::::::::::: columns
-:::::::::::::::: {.column width="40%"}
-::: {.column width="50%"}
+::::: columns
+::: {.column width="40%"}
 ```{r}
 #| message: false
 library("table1")
@@ -69,8 +68,7 @@ numeric_summary <- analysis_data |>
 ```
 :::
 
-:::: {.column width="60%"}
-::: {.column width="50%"}
+::: {.column width="60%"}
 ```{r}
 print(numeric_summary)
 ```
@@ -79,9 +77,7 @@ print(numeric_summary)
 
 ------------------------------------------------------------------------
 
-:::: {.columns} ::: {.column width="40%"}
-
-::::: columns
+:::: {.columns}
 ::: {.column width="40%"}
 ```{r}
 #| echo: true
@@ -107,9 +103,33 @@ final_categorical_table <- categorical_summary |>
 print(final_categorical_table)
 ```
 :::
-:::::
+::::
 
-::::::::: ::::
+------------------------------------------------------------------------
+
+## Plots from paper
+
+:::: {.columns}
+::: {.column width="50%"}
+![](/results/06_A_plot.png)
+:::
+
+::: {.column width="50%"}
+![](/results/06_C_plot.png)
+:::
+::::
+
+------------------------------------------------------------------------
+
+:::: {.columns}
+::: {.column width="50%"}
+![](/results/06_B1_plot.png)
+:::
+
+::: {.column width="50%"}
+![](/results/06_B2_plot.png)
+:::
+::::
 
 ------------------------------------------------------------------------
 
@@ -119,7 +139,7 @@ print(final_categorical_table)
 
 ------------------------------------------------------------------------
 
-::::: columns
+:::: {.columns}
 ::: {.column width="50%"}
 ![](/results/05_1d_plot.png)
 :::
@@ -127,14 +147,11 @@ print(final_categorical_table)
 ::: {.column width="50%"}
 ![](/results/05_2d_plot.png)
 :::
-:::::
+::::
 
 ------------------------------------------------------------------------
 
-## Plots from paper
-![](/results/06_A_plot.png)
-![](/results/06_B_plot.png)
-![](/results/06_C_plot.png)
+
 
 ## Biomarkers for prediction of response
 
@@ -142,36 +159,12 @@ print(final_categorical_table)
 
 ------------------------------------------------------------------------
 
-:::: columns
+:::: {.columns}
 ::: {.column width="40%"}
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 :::
 
-![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot.png)
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-
-```
-::::
-
 ::: {.column width="60%"}
 ![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](/results/07_boxplot.png)
 :::
-:::::::::
-::::::::::::::::
-:::::::::::::::::
+::::
