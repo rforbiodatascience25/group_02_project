@@ -13,7 +13,7 @@ Data sourced from paper: "**Apoptosis and other immune biomarkers predict influe
 
 Focus of current project:
 
--    Clean and augment data for analysis
+-   Clean and augment data for analysis
 
 -   PCA
 
@@ -91,10 +91,8 @@ Focus of current project:
 
 ## Data description
 
-:::: {.columns}
-
+::::: columns
 ::: {.column width="40%"}
-
 ```{r}
 numeric_summary <- analysis_data |>
   group_by(Age_Group) |>
@@ -114,20 +112,16 @@ numeric_summary <- analysis_data |>
       ")"),
     .groups = 'drop')
 ```
-
 :::
 
 ::: {.column width="60%"}
-
 ```{r}
 print(numeric_summary)
 ```
-
 :::
+:::::
 
-::::
-
----
+------------------------------------------------------------------------
 
 :::: {.columns} ::: {.column width="40%"}
 
@@ -154,8 +148,7 @@ final_categorical_table <- categorical_summary |>
 print(final_categorical_table)
 ```
 
-::: ::::
-
+:::::: ::::
 ## PCA
 
 ![](/results/05_variance_plot.png)
@@ -178,11 +171,11 @@ print(final_categorical_table)
 
 ![Based on the plot, we observe that the most differentiated probes are ILMN_1688780 and ILMN_1739792](images/07_volcano_plot.png)
 
----
+------------------------------------------------------------------------
 
 To find the most significant Probe that could potentially predict vaccine response we create a Boxplot for the two Probes observed previously.
 
-![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups. ](images/07_boxplot.png)
+![ILMN_1688780 has the most clear and non-overlapping difference in the distribution of pre-vaccine expression between the two groups.](images/07_boxplot.png)
 
 ## Quarto
 
@@ -200,5 +193,6 @@ When you click the **Render** button a document will be generated that includes:
 When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
 
 ```{r}
-1 + 1
+
 ```
+::::::
