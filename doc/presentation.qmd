@@ -28,9 +28,7 @@ editor: visual
 
 ## Flow chart
 
-The project work flow: 
-![](../results/FlowChart.drawio.png){width="80%"}
-
+The project work flow: ![](/results/FlowChart.drawio.png){width="80%"}
 
 ## Data description
 
