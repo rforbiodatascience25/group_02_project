@@ -8,6 +8,8 @@ embed-resources: true
 editor: visual
 ---
 
+
+
 ## Introduction
 
 **Data sourced from paper:**
@@ -34,6 +36,8 @@ editor: visual
 ::::::::::::::::: columns
 :::::::::::::::: {.column width="40%"}
 ::: {.column width="50%"}
+
+
 ```{r}
 #| message: false
 library("table1")
@@ -67,13 +71,19 @@ numeric_summary <- analysis_data |>
       ")"),
     .groups = 'drop')
 ```
+
+
 :::
 
 :::: {.column width="60%"}
 ::: {.column width="50%"}
+
+
 ```{r}
 print(numeric_summary)
 ```
+
+
 :::
 ::::
 
@@ -83,6 +93,8 @@ print(numeric_summary)
 
 ::::: columns
 ::: {.column width="40%"}
+
+
 ```{r}
 #| echo: true
 gender_table <- get_categorical_summary(analysis_data, Gender) |> 
@@ -100,12 +112,18 @@ final_categorical_table <- categorical_summary |>
               id_cols = c(Variable, Characteristic),
               names_sort = TRUE)
 ```
+
+
 :::
 
 ::: {.column width="60%"}
+
+
 ```{r}
 print(final_categorical_table)
 ```
+
+
 :::
 :::::
 
@@ -164,9 +182,13 @@ When you click the **Render** button a document will be generated that includes:
 
 When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
 
+
+
 ```{r}
 
 ```
+
+
 ::::
 
 ::: {.column width="60%"}
@@ -175,3 +197,4 @@ When you click the **Render** button a presentation will be generated that inclu
 :::::::::
 ::::::::::::::::
 :::::::::::::::::
+
