@@ -51,8 +51,6 @@ analysis_data_final <- analysis_data_long |>
 
 ```
 
-# C
-
 Let's visualize our results with a volcano plot.
 
 ```{r}
